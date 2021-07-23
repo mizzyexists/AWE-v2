@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <div id="sidebar" class="{{sidebarStatus}}">
+    <a class="nav-toggle" (click)="toggleSidebar()"><fa-icon [icon]="faBars"></fa-icon></a>
+    <div class="logo-container">
+      <a *ngIf="sidebarCollapsed==false" href="/"><img class="logo {{logoStatus}}" src="../assets/images/AWEWhite.png"></a>
+      <a *ngIf="sidebarCollapsed==true" href="/"><img class="logo-icon" src="../assets/images/AWEIcon.png"></a>
+      <h3 class="{{logoStatus}}" *ngIf="sidebarCollapsed==false">Angular Web Engine</h3>
+      <hr class="{{logoStatus}}"/>
+    </div>
+    <div *ngIf="sidebarCollapsed==false" class="sidebar-nav">
+      <ul>
+        <a routerLink="/"><li><fa-icon class="menu-icon" [icon]="faChalkboard"></fa-icon>Dashboard</li></a>
+        <a routerLink="/posts"><li><fa-icon class="menu-icon" [icon]="faStickyNote"></fa-icon>Posts</li></a>
+      </ul>
+    </div>
+    <div *ngIf="sidebarCollapsed==true" class="sidebar-nav mini">
+      <ul>
+        <a class="{{logoStatus}}" routerLink="/"><li><fa-icon class="menu-icon" [icon]="faChalkboard"></fa-icon></li></a>
+        <a class="{{logoStatus}}" routerLink="/posts"><li><fa-icon class="menu-icon" [icon]="faStickyNote"></fa-icon></li></a>
+      </ul>
+    </div>
+  </div>
+  <div id="main" class="{{sidebarStatus}}">
+    <router-outlet></router-outlet>
+  </div>
+</div>

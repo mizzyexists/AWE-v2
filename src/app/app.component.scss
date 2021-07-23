@@ -1,0 +1,115 @@
+$sbcolor: rgb(63, 81, 181, 0.5);
+
+.container-fluid{
+  padding: 0px;
+}
+
+#sidebar{
+  position: fixed;
+  height: 100vh;
+  width: 260px;
+  padding-right: 15px;
+  z-index: 9999;
+  background-image:
+    linear-gradient( $sbcolor, $sbcolor ),
+    url( '../assets/images/sidebar-texture.jpg' );
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+  transition: width .4s ease;
+  &.sb-mini{
+    width: 80px;
+    transition: width .4s ease;
+  }
+  .nav-toggle{
+    color: #fff;
+    float: right;
+    font-size: 30px;
+    cursor: pointer;
+  }
+  .logo-container{
+    margin-bottom: 15px;
+    .logo{
+      max-width: 100%;
+      padding: 0px 30px 0px 30px;
+      opacity: 1;
+      transition: opacity 1s ease;
+      &.invis{
+        opacity: 0;
+        transition: opacity 1s ease;
+      }
+    }
+    .logo-icon{
+      max-width: 100%;
+      margin-top: 10px;
+      padding-left: 10px;
+      -webkit-filter: invert(1) brightness(2);
+      filter: invert(1) brightness(2);
+    }
+    h3{
+      font-size: 20px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #fff;
+      text-align: center;
+      opacity: 1;
+      transition: opacity 1.5s ease;
+      &.invis{
+        opacity: 0;
+        transition: opacity 1.5s ease;
+      }
+    }
+    hr{
+      border-bottom: 1px solid #fff;
+      margin-left: 10px;
+      opacity: .5;
+      transition: opacity 1s ease;
+      &.invis{
+        opacity: 0;
+      }
+    }
+  }
+  .sidebar-nav{
+    ul{
+      list-style: none;
+      padding-left: 10px;
+      a{
+        &:hover{
+          text-decoration: none;
+        }
+        li{
+          padding: 20px 10px;
+          margin-bottom: 5px;
+          font-size: 20px;
+          color: #fff;
+          border-radius: 5px;
+          background-color: #ffffff00;
+          transition: background-color .2s ease;
+          .menu-icon{
+            margin-right: 20px;
+            display: inline-block;
+            text-align: center;
+            width: 35px;
+          }
+          &:hover{
+            background-color: #ffffff5f;
+            transition: background-color .2s ease;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+#main{
+  width: calc(100% - 260px);
+  position: relative;
+  float: right;
+  transition: width .6s ease;
+  padding: 20px;
+  &.sb-mini{
+    width: calc(100% - 80px);
+    transition: width .6s ease;
+  }
+}
