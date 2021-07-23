@@ -11,7 +11,7 @@ $sbcolor: rgb(63, 81, 181, 0.5);
   padding-right: 15px;
   z-index: 9999;
   background-image:
-    linear-gradient( $sbcolor, $sbcolor ),
+    linear-gradient(rgba(135, 0, 247, 0.85), rgba(0, 195, 255, 0.43)),
     url( '../assets/images/sidebar-texture.jpg' );
     background-repeat: no-repeat;
     background-size: cover;
