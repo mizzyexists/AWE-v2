@@ -84,7 +84,7 @@ $sbcolor: rgb(63, 81, 181, 0.5);
           color: #fff;
           border-radius: 5px;
           background-color: #ffffff00;
-          transition: background-color .2s ease;
+          transition: background-color .3s ease;
           .menu-icon{
             margin-right: 20px;
             display: inline-block;
@@ -93,7 +93,7 @@ $sbcolor: rgb(63, 81, 181, 0.5);
           }
           &:hover{
             background-color: #ffffff5f;
-            transition: background-color .2s ease;
+            transition: background-color .3s ease;
             text-decoration: none;
           }
         }

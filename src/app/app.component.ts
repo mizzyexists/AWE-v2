@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faBars, faChalkboard, faStickyNote } from '@fortawesome/free-solid-svg-icons';
+import { fromEvent, Observable, Subscription } from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -12,22 +13,42 @@ export class AppComponent implements OnInit {
   faChalkboard = faChalkboard;
   faStickyNote = faStickyNote;
   sidebarCollapsed = false;
+  logoCollapsed = false;
+  showFullLink = true;
   sidebarStatus = "";
   logoStatus = "";
+  resizeObservable$!: Observable<Event>;
+  resizeSubscription$!: Subscription;
   constructor(){
+    if (document.body.offsetWidth <= 720 && this.sidebarCollapsed == false) {
+      this.toggleSidebar()
+    }
   }
 
   ngOnInit(){
+    this.resizeObservable$ = fromEvent(window, 'resize')
+    this.resizeSubscription$ = this.resizeObservable$.subscribe( _evt => {
+      if (document.body.offsetWidth <= 720 && this.sidebarCollapsed == false) {
+        this.toggleSidebar()
+      }
+   })
   }
 
+  ngOnDestroy() {
+    this.resizeSubscription$.unsubscribe()
+}
   toggleSidebar(){
     if(this.sidebarCollapsed == true){
-      this.sidebarCollapsed = false;
       this.sidebarStatus = "";
-      setTimeout(() => this.logoStatus = "", 200);
+      this.logoCollapsed = false;
+      setTimeout(() =>   this.sidebarCollapsed = false, 300);
+      setTimeout(() => this.logoStatus = "", 300);
+      setTimeout(() => this.showFullLink = true, 350);
     }
     else{
       this.sidebarCollapsed = true;
+      this.logoCollapsed = true;
+      this.showFullLink = false;
       this.sidebarStatus = "sb-mini";
       this.logoStatus = "invis";
     }
