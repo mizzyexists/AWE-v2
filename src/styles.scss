@@ -6,3 +6,14 @@
 h1, h2, h3, h4, h5, h6, p, a, li, span{
   font-family: "Lato", sans-serif;
 }
+
+.btn{
+  &.btn-primary{
+    background-color: $indigo;
+    border-color: $indigo;
+    &:hover{
+      background-color: $purple;
+      border-color: $purple;
+    }
+  }
+}

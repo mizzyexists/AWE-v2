@@ -6,21 +6,33 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { PostsComponent } from './pages/posts/posts.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
+import { ProjectsComponent } from './pages/projects/projects.component';
+import { ClientsComponent } from './pages/clients/clients.component';
+import { TasksComponent } from './pages/tasks/tasks.component';
+import { HotToastModule } from '@ngneat/hot-toast';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    PostsComponent,
-    TopbarComponent
+    TopbarComponent,
+    ProjectsComponent,
+    ClientsComponent,
+    TasksComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    HotToastModule.forRoot(
+         {
+           position: 'top-right',
+           dismissible: true,
+           duration: 5000
+         }
+       )
   ],
   providers: [],
   bootstrap: [AppComponent]

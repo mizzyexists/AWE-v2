@@ -1,8 +1,42 @@
 <div id="topbar">
-  <div *ngIf="isLoggedIn==true" class="userinfo">
-    <a href="#"><img class="user-img" src="../../assets/images/MizzyLogoBlack.png"></a>
+  <div *ngIf="isLoggedIn==true" class="userinfo" ngbDropdown>
+    <a id="userDrop" ngbDropdownToggle ><img class="user-img" src="../../assets/images/MizzyLogoBlack.png"><fa-icon [icon]="faChevronDown"></fa-icon></a>
+    <div ngbDropdownMenu aria-labelledby="userDrop">
+      <button ngbDropdownItem>Profile</button>
+      <button ngbDropdownItem>Settings</button>
+    </div>
   </div>
   <div *ngIf="isLoggedIn==false" class="reg-login">
-    <a href="#" class="register-link">Register</a>|<a href="#" class="login-link">Login</a>
+    <a (click)="open(register)" class="register-link">Register</a>|<a (click)="open(login)" class="login-link">Login</a>
   </div>
 </div>
+
+<ng-template #register let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="register-modal">Register</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    REGISTER MODAL
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Register</button>
+  </div>
+</ng-template>
+
+<ng-template #login let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="register-modal">Login</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    LOGIN MODAL
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Login</button>
+  </div>
+</ng-template>

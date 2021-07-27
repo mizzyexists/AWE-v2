@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { faBars, faChalkboard, faStickyNote } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faChalkboard, faStickyNote, faProjectDiagram, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import { fromEvent, Observable, Subscription } from "rxjs";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,8 @@ export class AppComponent implements OnInit {
   faBars = faBars;
   faChalkboard = faChalkboard;
   faStickyNote = faStickyNote;
+  faUserFriends = faUserFriends;
+  faProjectDiagram = faProjectDiagram;
   sidebarCollapsed = false;
   logoCollapsed = false;
   showFullLink = true;
@@ -19,7 +22,8 @@ export class AppComponent implements OnInit {
   logoStatus = "";
   resizeObservable$!: Observable<Event>;
   resizeSubscription$!: Subscription;
-  constructor(){
+
+  constructor() {
     if (document.body.offsetWidth <= 720 && this.sidebarCollapsed == false) {
       this.toggleSidebar()
     }
@@ -42,7 +46,7 @@ export class AppComponent implements OnInit {
       this.sidebarStatus = "";
       this.logoCollapsed = false;
       setTimeout(() =>   this.sidebarCollapsed = false, 300);
-      setTimeout(() => this.logoStatus = "", 300);
+      setTimeout(() => this.logoStatus = "", 100);
       setTimeout(() => this.showFullLink = true, 350);
     }
     else{

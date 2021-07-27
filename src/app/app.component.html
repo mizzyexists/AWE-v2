@@ -10,13 +10,17 @@
     <div *ngIf="sidebarCollapsed==false" class="sidebar-nav">
       <ul>
         <a routerLink="/"><li><fa-icon class="menu-icon" [icon]="faChalkboard"></fa-icon><span *ngIf="showFullLink==true">Dashboard</span></li></a>
-        <a routerLink="/posts"><li><fa-icon class="menu-icon" [icon]="faStickyNote"></fa-icon><span *ngIf="showFullLink==true">Posts</span></li></a>
+        <a routerLink="/clients"><li><fa-icon class="menu-icon" [icon]="faUserFriends"></fa-icon><span *ngIf="showFullLink==true">Clients</span></li></a>
+        <a routerLink="/projects"><li><fa-icon class="menu-icon" [icon]="faProjectDiagram"></fa-icon><span *ngIf="showFullLink==true">Projects</span></li></a>
+        <a routerLink="/tasks"><li><fa-icon class="menu-icon" [icon]="faStickyNote"></fa-icon><span *ngIf="showFullLink==true">Tasks</span></li></a>
       </ul>
     </div>
     <div *ngIf="sidebarCollapsed==true" class="sidebar-nav mini">
       <ul>
         <a class="{{logoStatus}}" routerLink="/"><li><fa-icon class="menu-icon" [icon]="faChalkboard"></fa-icon></li></a>
-        <a class="{{logoStatus}}" routerLink="/posts"><li><fa-icon class="menu-icon" [icon]="faStickyNote"></fa-icon></li></a>
+        <a class="{{logoStatus}}" routerLink="/clients"><li><fa-icon class="menu-icon" [icon]="faUserFriends"></fa-icon></li></a>
+        <a class="{{logoStatus}}" routerLink="/projects"><li><fa-icon class="menu-icon" [icon]="faProjectDiagram"></fa-icon></li></a>
+        <a class="{{logoStatus}}" routerLink="/tasks"><li><fa-icon class="menu-icon" [icon]="faStickyNote"></fa-icon></li></a>
       </ul>
     </div>
   </div>
