@@ -1,5 +1,10 @@
 #topbar{
   margin-bottom: 20px;
+  .page-info {
+    position: absolute;
+    left: 30px;
+    top: 26px;
+  }
   a{
     cursor: pointer;
     .user-img{

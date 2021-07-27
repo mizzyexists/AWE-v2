@@ -1,4 +1,7 @@
 <div id="topbar">
+  <div class="page-info">
+    <h2>{{ currentPage }}</h2>
+  </div>
   <div *ngIf="isLoggedIn==true" class="userinfo" ngbDropdown>
     <a id="userDrop" ngbDropdownToggle ><img class="user-img" src="../../assets/images/MizzyLogoBlack.png"><fa-icon [icon]="faChevronDown"></fa-icon></a>
     <div ngbDropdownMenu aria-labelledby="userDrop">

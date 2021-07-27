@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faBars, faChalkboard, faStickyNote, faProjectDiagram, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import { fromEvent, Observable, Subscription } from "rxjs";
-import { Title } from "@angular/platform-browser";
+
 
 @Component({
   selector: 'app-root',
@@ -23,9 +23,24 @@ export class AppComponent implements OnInit {
   resizeObservable$!: Observable<Event>;
   resizeSubscription$!: Subscription;
 
-  constructor() {
+  constructor(
+    ) {
     if (document.body.offsetWidth <= 720 && this.sidebarCollapsed == false) {
       this.toggleSidebar()
+    }
+    if(window.localStorage.getItem('minisb') == 'true'){
+      this.sidebarCollapsed = true;
+      this.logoCollapsed = true;
+      this.showFullLink = false;
+      this.sidebarStatus = "sb-mini";
+      this.logoStatus = "invis";
+    }
+    else{
+      this.sidebarStatus = "";
+      this.logoCollapsed = false;
+      this.sidebarCollapsed = false;
+      this.logoStatus = "";
+      this.showFullLink = true;
     }
   }
 
@@ -35,11 +50,11 @@ export class AppComponent implements OnInit {
       if (document.body.offsetWidth <= 720 && this.sidebarCollapsed == false) {
         this.toggleSidebar()
       }
-   })
+    })
   }
 
   ngOnDestroy() {
-    this.resizeSubscription$.unsubscribe()
+    this.resizeSubscription$.unsubscribe();
 }
   toggleSidebar(){
     if(this.sidebarCollapsed == true){
@@ -48,6 +63,7 @@ export class AppComponent implements OnInit {
       setTimeout(() =>   this.sidebarCollapsed = false, 300);
       setTimeout(() => this.logoStatus = "", 100);
       setTimeout(() => this.showFullLink = true, 350);
+      window.localStorage.setItem('minisb', 'false');
     }
     else{
       this.sidebarCollapsed = true;
@@ -55,6 +71,7 @@ export class AppComponent implements OnInit {
       this.showFullLink = false;
       this.sidebarStatus = "sb-mini";
       this.logoStatus = "invis";
+      window.localStorage.setItem('minisb', 'true');
     }
   }
 }

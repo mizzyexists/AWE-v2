@@ -6,10 +6,10 @@ import { TasksComponent } from './pages/tasks/tasks.component';
 import { ClientsComponent } from './pages/clients/clients.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent},
-  { path: 'clients', component: ClientsComponent},
-  { path: 'projects', component: ProjectsComponent},
-  { path: 'tasks', component: TasksComponent},
+  { path: '', component: DashboardComponent, data: {title: 'Dashboard'}},
+  { path: 'clients', component: ClientsComponent, data: {title: 'Clients'}},
+  { path: 'projects', component: ProjectsComponent, data: {title: 'Projects'}},
+  { path: 'tasks', component: TasksComponent, data: {title: 'Tasks'}},
 
 ];
 
