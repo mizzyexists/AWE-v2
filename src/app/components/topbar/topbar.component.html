@@ -1,0 +1,8 @@
+<div id="topbar">
+  <div *ngIf="isLoggedIn==true" class="userinfo">
+    <a href="#"><img class="user-img" src="../../assets/images/MizzyLogoBlack.png"></a>
+  </div>
+  <div *ngIf="isLoggedIn==false" class="reg-login">
+    <a href="#" class="register-link">Register</a>|<a href="#" class="login-link">Login</a>
+  </div>
+</div>

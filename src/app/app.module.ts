@@ -7,12 +7,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PostsComponent } from './pages/posts/posts.component';
+import { TopbarComponent } from './components/topbar/topbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    PostsComponent
+    PostsComponent,
+    TopbarComponent
   ],
   imports: [
     BrowserModule,
