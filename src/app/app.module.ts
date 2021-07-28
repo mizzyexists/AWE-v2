@@ -11,6 +11,10 @@ import { ProjectsComponent } from './pages/projects/projects.component';
 import { ClientsComponent } from './pages/clients/clients.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { HotToastModule } from '@ngneat/hot-toast';
+import { RegisterComponent } from './auth/register/register.component';
+import { LoginComponent } from './auth/login/login.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,11 +23,16 @@ import { HotToastModule } from '@ngneat/hot-toast';
     TopbarComponent,
     ProjectsComponent,
     ClientsComponent,
-    TasksComponent
+    TasksComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     FontAwesomeModule,
     HotToastModule.forRoot(

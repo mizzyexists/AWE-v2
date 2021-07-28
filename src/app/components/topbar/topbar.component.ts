@@ -13,7 +13,7 @@ import {map, mergeMap} from 'rxjs/internal/operators';
 export class TopbarComponent implements OnInit {
 
   faChevronDown = faChevronDown;
-  isLoggedIn = true;
+  isLoggedIn = false;
   currentPage: any;
 
   constructor(
