@@ -37,7 +37,8 @@ if(isset($postdata) && !empty($postdata))
       $response = [
         'code' => 1,
         'message' => 'Successful Login',
-        'jwt' => $token
+        'jwt' => $token,
+        'username' => $username
       ];
       echo json_encode($response);
     }
