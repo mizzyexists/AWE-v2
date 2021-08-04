@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
 import { AuthData } from 'src/app/models/authdata';
 // import { RecaptchaService } from '../../../services/recaptcha.service';
 import { AuthService } from '../../services/auth.service';
@@ -21,10 +19,9 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder:FormBuilder,
     private authApi: AuthService,
-    private titleService: Title,
     private toastService: HotToastService
-  ) {
-    this.titleService.setTitle( "9Forty5 - Register" );
+  )
+  {
     this.registerForm = this.formBuilder.group({
       uid: [],
       username: ['', Validators.required],
@@ -56,33 +53,41 @@ export class RegisterComponent implements OnInit {
     // }
     if(this.registerForm.value.username && this.registerForm.value.email && this.registerForm.value.password && this.registerForm.value.password2 && this.registerForm.value.password.length>=6){
       if(this.registerForm.value.password == this.registerForm.value.password2){
-    this.authApi.register(this.registerForm.value).subscribe((data)=>{
-      this.responseData = data;
-      if(this.responseData[0]==0){
-      const loginData = {username: this.registerForm.value.username, password: this.registerForm.value.password};
-      this.authApi.login(loginData).subscribe((data: any) => {
-        if(data.jwt || data.email) {
-          window.localStorage.setItem('jwt', data.jwt);
-          this.registerForm.reset();
-          window.localStorage.removeItem('captchaRes');
-          setTimeout(() => window.location.href = './', 500);
-        }else{
-          this.toastService.error('An Error Occured');
-        }
-      })
+        this.authApi.register(this.registerForm.value).subscribe((data)=>{
+          this.responseData = data;
+          switch(this.responseData.code){
+            case 1: {
+            const loginData = {username: this.registerForm.value.username, password: this.registerForm.value.password};
+            this.authApi.login(loginData).subscribe((data: any) => {
+              if(data.code==1 && data.jwt) {
+                window.localStorage.setItem('jwt', data.jwt);
+                this.registerForm.reset();
+                // window.localStorage.removeItem('captchaRes');
+                setTimeout(() => window.location.href = './', 500);
+              }
+              else{
+                this.toastService.error('An Error Occured');
+              }
+              })
+              break;
+            }
+            case 998: {
+              this.toastService.error('User Already Exists');
+              break;
+            }
+            case 999: {
+              this.toastService.error('An Unknown Error Occured');
+              break;
+            }
+          }
+        });
+      }
+      else{
+        this.toastService.warning('Passwords do not match');
+      }
     }
     else{
-      this.toastService.error('User Already Exists.');
-      this.registerForm.reset();
+      this.toastService.error('An Error Occured');
     }
-  });}
-  else{
-    this.toastService.warning('Passwords do not match');
   }
-  }
-  else{
-    this.toastService.error('An Error Occured');
-  }
-}
-
 }
