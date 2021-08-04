@@ -10,8 +10,6 @@ if(isset($postdata) && !empty($postdata))
   $password = trim($request->password);
 
   $sql = "SELECT * FROM users WHERE username = '$username' OR email = '$username' LIMIT 1";
-  $sql = "SELECT * FROM users WHERE username = 'mizzy' OR email = 'test@test.com' LIMIT 1";
-
 
   if($result = mysqli_query($con, $sql)){
     $rows = array();

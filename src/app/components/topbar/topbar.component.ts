@@ -4,6 +4,8 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {filter} from 'rxjs/operators';
 import {map, mergeMap} from 'rxjs/internal/operators';
+import { AuthService } from 'src/app/services/auth.service';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-topbar',
@@ -13,17 +15,27 @@ import {map, mergeMap} from 'rxjs/internal/operators';
 export class TopbarComponent implements OnInit {
 
   faChevronDown = faChevronDown;
-  isLoggedIn = false;
+  isLoggedIn: any = false;
   currentPage: any;
+  authToken: any;
+  jwtData: any;
+  authCheck: any;
+  authUser: any;
+  jwtUsername: any;
+  authRequest: any;
+  authData: any;
 
   constructor(
     private modalService: NgbModal,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private toastService: HotToastService,
+    private router: Router,
+    private authApi: AuthService
   )
-  { }
+  {  }
 
   ngOnInit() {
+    this.checkLoggedUser();
     this.router.events
     .pipe(filter(event => event instanceof NavigationEnd),
       map(() => {
@@ -49,6 +61,39 @@ export class TopbarComponent implements OnInit {
 
   open(content: any) {
     this.modalService.open(content, { centered: true, size: 'lg' });
+  }
+
+  checkLoggedUser(){
+    this.authToken = window.localStorage.getItem('jwt');
+    this.authUser = window.localStorage.getItem('loggedUsername');
+    this.authRequest = [this.authToken, this.authUser];
+    if(this.authToken && this.authUser){
+      this.authApi.authorize(this.authRequest).subscribe(res => {
+        this.authData = res;
+        if(this.authData.code == 1 && this.authData.tokenValidity == true){
+          this.jwtData = this.authData.tokenPayload;
+          this.jwtUsername = this.jwtData.username;
+          this.isLoggedIn = true;
+        }
+        else{
+          this.toastService.error(this.authData.message);
+        }
+      }, error => {
+        this.toastService.error(error.statusText);
+        console.log(this.authRequest);
+      });
+    }
+    else{
+      this.isLoggedIn = false;
+    }
+  }
+
+  logout() {
+    this.isLoggedIn = false;
+    window.localStorage.removeItem('jwt');
+    window.localStorage.removeItem('loggedUsername');
+    this.toastService.warning('You have been logged out');
+    setTimeout(() => window.location.href = './', 1500);
   }
 
 }
