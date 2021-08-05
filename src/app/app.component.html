@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div *ngIf="isLoggedIn==true" class="container-fluid">
   <div id="sidebar" class="{{sidebarStatus}}">
     <a class="nav-toggle" (click)="toggleSidebar()"><fa-icon [icon]="faBars"></fa-icon></a>
     <div class="logo-container">
@@ -28,4 +28,7 @@
     <app-topbar></app-topbar>
     <router-outlet></router-outlet>
   </div>
+</div>
+<div *ngIf="isLoggedIn==false || !isLoggedIn" class="container mt-5">
+  <app-login></app-login>
 </div>

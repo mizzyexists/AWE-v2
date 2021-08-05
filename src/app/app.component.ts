@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faBars, faChalkboard, faStickyNote, faProjectDiagram, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import { fromEvent, Observable, Subscription } from "rxjs";
+import { AuthService } from './services/auth.service';
 
 
 @Component({
@@ -22,9 +23,16 @@ export class AppComponent implements OnInit {
   logoStatus = "";
   resizeObservable$!: Observable<Event>;
   resizeSubscription$!: Subscription;
+  isLoggedIn: any;
 
   constructor(
+    private authApi: AuthService
+
     ) {
+      this.authApi.authenticateUser().subscribe(res => {
+        this.isLoggedIn = res;
+      }, err =>{
+      });
     if (document.body.offsetWidth <= 720 && this.sidebarCollapsed == false) {
       this.toggleSidebar()
     }

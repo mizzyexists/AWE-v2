@@ -15,13 +15,13 @@ import { HotToastService } from '@ngneat/hot-toast';
 export class TopbarComponent implements OnInit {
 
   faChevronDown = faChevronDown;
-  isLoggedIn: any = false;
+  isLoggedIn: any;
   currentPage: any;
   authToken: any;
   jwtData: any;
   authUser: any;
   jwtUsername: any;
-  authRequest: any;
+  authRequest: any = [];
   authData: any;
 
   constructor(
@@ -31,10 +31,14 @@ export class TopbarComponent implements OnInit {
     private router: Router,
     private authApi: AuthService
   )
-  {  }
+  {
+    this.authApi.authenticateUser().subscribe(res => {
+      this.isLoggedIn = res;
+    }, err =>{
+    });
+  }
 
   ngOnInit() {
-    this.checkLoggedUser();
     this.router.events
     .pipe(filter(event => event instanceof NavigationEnd),
       map(() => {
@@ -62,30 +66,6 @@ export class TopbarComponent implements OnInit {
     this.modalService.open(content, { centered: true, size: 'lg' });
   }
 
-  checkLoggedUser(){
-    this.authToken = window.localStorage.getItem('jwt');
-    this.authUser = window.localStorage.getItem('loggedUsername');
-    this.authRequest = [this.authToken, this.authUser];
-    if(this.authToken && this.authUser){
-      this.authApi.authorize(this.authRequest).subscribe(res => {
-        this.authData = res;
-        if(this.authData.code == 1 && this.authData.tokenValidity == true){
-          this.jwtData = this.authData.tokenPayload;
-          this.jwtUsername = this.jwtData.username;
-          this.isLoggedIn = true;
-        }
-        else{
-          this.toastService.error(this.authData.message);
-        }
-      }, error => {
-        this.toastService.error(error.statusText);
-        console.log(this.authRequest);
-      });
-    }
-    else{
-      this.isLoggedIn = false;
-    }
-  }
 
   logout() {
     this.isLoggedIn = false;
