@@ -19,7 +19,6 @@ export class TopbarComponent implements OnInit {
   currentPage: any;
   authToken: any;
   jwtData: any;
-  authCheck: any;
   authUser: any;
   jwtUsername: any;
   authRequest: any;
