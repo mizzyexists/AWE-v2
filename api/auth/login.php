@@ -19,6 +19,7 @@ if(isset($postdata) && !empty($postdata))
       $dbusername = $rows[0]['username'];
       $dbhash = $rows[0]['password'];
       $dbemail = $rows[0]['email'];
+      $dbrole = $rows[0]['role'];
     }
     if(password_verify($password, $dbhash) == true){
       $payload = [
@@ -29,7 +30,8 @@ if(isset($postdata) && !empty($postdata))
         'data' => [
           'uid' => $dbuid,
           'username' => $username,
-          'email' => $dbemail
+          'email' => $dbemail,
+          'role' => $dbrole
         ]
       ];
       $secret = $dbhash;

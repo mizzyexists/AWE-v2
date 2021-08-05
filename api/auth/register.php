@@ -19,7 +19,7 @@ if(isset($postdata) && !empty($postdata))
   }
 
   $sql1 = "SELECT * FROM users WHERE username = '$username' OR email = '$email'";
-  $sql2 = "INSERT INTO users(uid, username, password, email) VALUES (null, '$username', '$hash', '$email')";
+  $sql2 = "INSERT INTO users(uid, username, password, email, role) VALUES (null, '$username', '$hash', '$email', null)";
 
   $usercheck = mysqli_query($con, $sql1);
   $count = mysqli_num_rows($usercheck); // Check if user or email exists
