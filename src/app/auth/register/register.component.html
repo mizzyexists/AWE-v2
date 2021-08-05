@@ -1,22 +1,23 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<div class="row">
+  <div class="col login-form text-center">
+    <img class="mb-4" src="./assets/images/AWEColor1.png" width="250px"/>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="username">Username:</label>
           <input type="text" formControlName="username" placeholder="Username" name="username" class="form-control" id="username">
         </div>
         <div class="form-group">
-          <label for="email">Email:</label>
           <input type="text" formControlName="email" placeholder="E-Mail" name="email" class="form-control" id="email">
         </div>
         <div class="form-group">
-          <label for="password">Password:</label>
           <input type="password" formControlName="password" placeholder="Password" name="password" class="form-control" id="password">
         </div>
         <div class="form-group">
-          <label for="password">Confirm Password:</label>
           <input type="password" formControlName="password2" placeholder="Confirm Password" name="password2" class="form-control" id="password2">
         </div>
         <!-- <div class="form-group">
           <re-captcha class="text-center d-flex justify-content-center" formControlName="reCaptcha" name="reCaptcha" id="reCaptcha" (resolved)="resolved($event)" siteKey='6LdeStsZAAAAAO_XpcvZ0HlHeD-7iR0t6ZR_HJrD'></re-captcha>
         </div> -->
-        <button class="btn btn-light">Register</button>
-      </form>
+        <button class="btn btn--primary">Register</button>
+        </form>
+      </div>
+</div>

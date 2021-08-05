@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthData } from 'src/app/models/authdata';
-import { Title } from '@angular/platform-browser';
 import { AuthService } from '../../services/auth.service';
 import { HotToastService } from '@ngneat/hot-toast';
 
@@ -25,8 +22,6 @@ export class LoginComponent implements OnInit {
     private toastService: HotToastService,
     private formBuilder:FormBuilder,
     private authApi: AuthService,
-    private router: Router,
-    private titleService: Title
   ){}
   ngOnInit() {
     this.authToken = window.localStorage.getItem('jwt');
@@ -61,8 +56,14 @@ export class LoginComponent implements OnInit {
         setTimeout(() => window.location.href = './', 500);
       }
       else {
+        window.localStorage.removeItem('jwt');
+        window.localStorage.removeItem('loggedUsername');
         this.toastService.error(this.response.message);
       }
+    }, err => {
+      window.localStorage.removeItem('jwt');
+      window.localStorage.removeItem('loggedUsername');
+      this.toastService.error("Unknown Error: " + err);
     })
   }
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthData } from 'src/app/models/authdata';
 // import { RecaptchaService } from '../../../services/recaptcha.service';
 import { AuthService } from '../../services/auth.service';
 import { HotToastService } from '@ngneat/hot-toast';
@@ -12,7 +11,6 @@ import { HotToastService } from '@ngneat/hot-toast';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  authCheck: AuthData | undefined;
   recaptcha: any;
   captchaGRes: any;
   responseData: any;
@@ -76,6 +74,10 @@ export class RegisterComponent implements OnInit {
               break;
             }
             case 999: {
+              this.toastService.error('An Unknown Error Occured');
+              break;
+            }
+            default: {
               this.toastService.error('An Unknown Error Occured');
               break;
             }
