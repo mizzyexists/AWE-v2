@@ -15,7 +15,7 @@ stages:
 
 release_job:
   stage: build
-  script: node_modules/.bin/ng build --prod
+  script: node_modules/.bin/ng build
   artifacts:
     name: "project-$CI_COMMIT_REF_NAME"
     paths:
