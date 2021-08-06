@@ -24,4 +24,4 @@ deploy:
     - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_ed25519
     - chmod 600 ~/.ssh/id_ed25519
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - /usr/bin/rsync -ravO dist/AWE-v2/ root@captain.appserver.mizzyexists.com:/var/lib/docker/volumes/captain--awev2app-webroot/
+    - /usr/bin/rsync -ravO dist/AWE-v2/ root@captain.appserver.mizzyexists.com:/var/lib/docker/volumes/captain--awev2app-webroot/_data/
