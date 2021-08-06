@@ -11,6 +11,7 @@ before_script:
 
 stages:
   - build
+  - deploy
 
 release_job:
   stage: build
@@ -20,3 +21,16 @@ release_job:
     paths:
       - dist/
     expire_in: 1 week
+
+deploy:
+  image: alpine
+  stage: deploy
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_ed25519
+    - chmod 600 ~/.ssh/id_ed25519
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - rsync -ravO dist/AWE-v2 root@captain.appserver.mizzyexists.com:/var/lib/docker/volumes/captain--awev2app-webroot/
+  only:
+      - publish
