@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faBars, faChalkboard, faStickyNote, faProjectDiagram, faUserFriends } from '@fortawesome/free-solid-svg-icons';
+import { HotToastService } from '@ngneat/hot-toast';
 import { fromEvent, Observable, Subscription } from "rxjs";
 import { AuthService } from './services/auth.service';
 
@@ -26,12 +27,13 @@ export class AppComponent implements OnInit {
   isLoggedIn: any;
 
   constructor(
-    private authApi: AuthService
-
+    private authApi: AuthService,
+    private toastService: HotToastService
     ) {
       this.authApi.authenticateUser().subscribe(res => {
         this.isLoggedIn = res;
       }, err =>{
+        this.toastService.error("AUTH ERROR")
       });
     if (document.body.offsetWidth <= 720 && this.sidebarCollapsed == false) {
       this.toggleSidebar()

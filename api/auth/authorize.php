@@ -30,12 +30,20 @@ if(isset($postdata) && !empty($postdata))
     else{
       $response = [
         'code' => 355,
-        'message' => 'Could not authentcate auth-token',
+        'message' => 'Could not authenticate. Please login again.',
         'error' => 'BAD TOKEN'
       ];
       echo json_encode($response);
     }
   }
+}
+else{
+  $response = [
+    'code' => 365,
+    'message' => 'No token was given to authenticate',
+    'error' => 'NO TOKEN'
+  ];
+  echo json_encode($response);
 }
 
 ?>

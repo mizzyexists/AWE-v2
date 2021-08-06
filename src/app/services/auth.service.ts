@@ -47,17 +47,30 @@ export class AuthService {
           subject.next(this.isLoggedIn);
         }
         else{
+          window.localStorage.removeItem('jwt');
+          window.localStorage.removeItem('loggedUsername');
           this.toastService.error(res.message);
+          this.isLoggedIn = false;
+          subject.next(this.isLoggedIn);
         }
       }, err => {
+        window.localStorage.removeItem('jwt');
+        window.localStorage.removeItem('loggedUsername');
         this.toastService.error(err.statusText);
         this.isLoggedIn = false;
         subject.next(this.isLoggedIn);
       });
     }
     else{
-      this.isLoggedIn = false;
-      subject.next(this.isLoggedIn);
+      this.authorize(null).subscribe(_res => {
+        // this.toastService.error(res.message);
+        this.isLoggedIn = false;
+        subject.next(this.isLoggedIn);
+      }, err => {
+        this.toastService.error("Unknown Error: "+ err);
+        this.isLoggedIn = false;
+        subject.next(this.isLoggedIn);
+      });
     }
     return subject;
   }

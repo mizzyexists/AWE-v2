@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
         window.localStorage.setItem('jwt', this.response.jwt);
         window.localStorage.setItem('loggedUsername', this.response.username);
         this.toastService.success(this.response.message);
-        setTimeout(() => window.location.href = './', 500);
+        setTimeout(() => window.location.href = './', 1000);
       }
       else {
         window.localStorage.removeItem('jwt');

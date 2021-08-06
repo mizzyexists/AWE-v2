@@ -38,7 +38,7 @@ if(isset($postdata) && !empty($postdata))
       $token = Token::customPayload($payload, $secret);
       $response = [
         'code' => 1,
-        'message' => 'Successful Login',
+        'message' => 'Successfully Logged In',
         'jwt' => $token,
         'username' => $username
       ];

@@ -29,12 +29,13 @@ export class TopbarComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private toastService: HotToastService,
     private router: Router,
-    private authApi: AuthService
+    private authApi: AuthService,
   )
   {
     this.authApi.authenticateUser().subscribe(res => {
       this.isLoggedIn = res;
     }, err =>{
+      this.isLoggedIn = err;
     });
   }
 
@@ -60,6 +61,15 @@ export class TopbarComponent implements OnInit {
       this.currentPage = data;
       this.currentPage = this.currentPage.title;
     });
+    if(!this.currentPage){
+      console.log()
+      if(window.location.pathname == "/"){
+        this.currentPage = "Dashboard";
+      }
+      else{
+      this.currentPage = window.location.pathname;
+      }
+    }
   }
 
   open(content: any) {

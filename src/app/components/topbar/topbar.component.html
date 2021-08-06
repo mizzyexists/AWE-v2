@@ -1,16 +1,16 @@
 <div id="topbar">
   <div class="page-info">
-    <h2>{{ currentPage }}</h2>
+    <h2>{{ currentPage.replace('/', '') | titlecase }}</h2>
   </div>
   <div *ngIf="isLoggedIn==true" class="userinfo" ngbDropdown>
     <a id="userDrop" ngbDropdownToggle ><img class="user-img" src="../../assets/images/MizzyLogoBlack.png"><fa-icon [icon]="faChevronDown"></fa-icon></a>
     <div ngbDropdownMenu aria-labelledby="userDrop">
-      <button ngbDropdownItem>Profile</button>
+      <button ngbDropdownItem routerLink="profile">Profile</button>
       <button ngbDropdownItem>Settings</button>
       <button ngbDropdownItem (click)="logout()">Log Out</button>
     </div>
   </div>
-  <div *ngIf="isLoggedIn==false || !isLoggedIn" class="reg-login">
+  <div *ngIf="isLoggedIn==false" class="reg-login">
     <a (click)="open(register)" class="register-link">Register</a>|<a (click)="open(login)" class="login-link">Login</a>
   </div>
 </div>
