@@ -61,8 +61,6 @@ export class AppComponent implements OnInit {
         this.toggleSidebar()
       }
     })
-    this.toastService.success("TEST"), {
-      autoClose: false};
   }
 
   ngOnDestroy() {

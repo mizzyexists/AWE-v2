@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { HomeComponent } from './pages/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ChangelogComponent } from './components/changelog/changelog.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { FooterComponent } from './components/footer/footer.component';
     LoginComponent,
     ProfileComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
+    ChangelogComponent
   ],
   imports: [
     BrowserModule,

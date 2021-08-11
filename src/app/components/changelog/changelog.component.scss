@@ -1,0 +1,18 @@
+span{
+  color: #fff;
+  a{
+    color: #fff;
+    cursor: pointer;
+    &:hover{
+      text-decoration: underline !important;
+    }
+  }
+}
+
+button{
+  &.close{
+    span{
+      color: #000;
+    }
+  }
+}

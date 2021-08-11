@@ -2,6 +2,11 @@
 
 ## Version 2
 
+### 2.1.1
+- Added Changlog to App
+- Started writing new PROFILE API
+- Several security fixes
+
 ### 2.1.0
 - Auth API Written and Functioning
 - Homepage design for non-logged in users

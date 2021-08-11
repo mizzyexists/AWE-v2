@@ -1,0 +1,46 @@
+<span>Version {{versionNumber}} | <a (click)="open(changelog)">Changelog</a></span>
+<ng-template #changelog let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="register-modal">Updates & Changes</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ng-container *ngTemplateOutlet="changelogContent"></ng-container>
+  </div>
+</ng-template>
+
+
+
+<ng-template #changelogContent>
+  <h3 id="2-1-1">2.1.1</h3>
+  <ul>
+  <li>Added Changlog to App</li>
+  <li>Started writing new PROFILE API</li>
+  <li>Several security fixes</li>
+  </ul>
+  <h3 id="2-1-0">2.1.0</h3>
+  <ul>
+  <li>Auth API Written and Functioning</li>
+  <li>Homepage design for non-logged in users</li>
+  <li>General Dashboard UI designed</li>
+  </ul>
+  <h3 id="2-0-1">2.0.1</h3>
+  <ul>
+  <li>Setup New Sidebar Layout<ul>
+  <li>Collapses to show only icons</li>
+  </ul>
+  </li>
+  <li>Added &#39;Dashboard&#39; and &#39;Post&#39; pages</li>
+  <li>Implemented Angular router</li>
+  <li>Implemented Bootstrap 5</li>
+  <li>Implemented NG-Bootstrap</li>
+  <li>Implemented FontAwesome</li>
+  </ul>
+  <h3 id="2-0-0">2.0.0</h3>
+  <ul>
+  <li>Angular Initialization</li>
+  <li>Entire Backend to be Re-written</li>
+  </ul>
+</ng-template>
