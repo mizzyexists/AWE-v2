@@ -1,6 +1,6 @@
 <div class="row">
-  <div class="col login-form text-center">
-    <img class="mb-4" src="./assets/images/AWEColor1.png" width="250px"/>
+  <div *ngIf="registrationStatus=='open'" class="col login-form text-center">
+    <img class="mb-4" src="./assets/images/AWEBlack.png" width="250px"/>
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="px-5">
         <div class="form-group">
           <input type="text" formControlName="username" placeholder="Username" name="username" class="form-control" id="username">
@@ -19,5 +19,9 @@
         </div> -->
         <button class="btn btn--primary">Register</button>
         </form>
+      </div>
+      <div *ngIf="registrationStatus!='open' || !registrationStatus" class="col text-center py-5">
+        <h1>Sorry!</h1>
+        <h2>Registration is currently closed</h2>
       </div>
 </div>

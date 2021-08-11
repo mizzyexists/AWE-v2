@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
   recaptcha: any;
   captchaGRes: any;
   responseData: any;
+  registrationStatus: any = 'closed';
   constructor(
     private formBuilder:FormBuilder,
     private authApi: AuthService,
@@ -89,7 +90,6 @@ export class RegisterComponent implements OnInit {
       }
     }
     else{
-      this.toastService.error('An Error Occured');
     }
   }
 }

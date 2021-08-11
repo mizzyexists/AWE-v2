@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of, Observable, Subject } from  'rxjs';
+import { Observable, Subject } from  'rxjs';
 import { ServerInfo } from '../models/serverinfo';
 import { HotToastService } from '@ngneat/hot-toast';
 

@@ -16,6 +16,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { HomeComponent } from './pages/home/home.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { ProfileComponent } from './pages/profile/profile.component';
     TasksComponent,
     RegisterComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    HomeComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

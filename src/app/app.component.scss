@@ -114,3 +114,9 @@ $sbcolor: rgb(63, 81, 181, 0.5);
     transition: width .6s ease;
   }
 }
+
+#home-route{
+  background-image:linear-gradient(rgba(135, 0, 247, 0.66), rgba(0, 195, 255, 0.23)), url('../assets/images/herobg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}

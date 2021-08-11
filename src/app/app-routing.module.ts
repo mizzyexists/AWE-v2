@@ -5,13 +5,14 @@ import { ProjectsComponent } from './pages/projects/projects.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { ClientsComponent } from './pages/clients/clients.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { IsLoggedGuard } from './guards/is-logged.guard';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, data: {title: 'Dashboard'}},
-  { path: 'clients', component: ClientsComponent, data: {title: 'Clients'}},
-  { path: 'projects', component: ProjectsComponent, data: {title: 'Projects'}},
-  { path: 'tasks', component: TasksComponent, data: {title: 'Tasks'}},
-  { path: 'profile', component: ProfileComponent, data: {title: 'Profile'}},
+  { path: 'clients', component: ClientsComponent, data: {title: 'Clients'}, canActivate: [IsLoggedGuard]},
+  { path: 'projects', component: ProjectsComponent, data: {title: 'Projects'}, canActivate: [IsLoggedGuard]},
+  { path: 'tasks', component: TasksComponent, data: {title: 'Tasks'}, canActivate: [IsLoggedGuard]},
+  { path: 'profile', component: ProfileComponent, data: {title: 'Profile'}, canActivate: [IsLoggedGuard]},
 
 ];
 

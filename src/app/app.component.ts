@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
       this.authApi.authenticateUser().subscribe(res => {
         this.isLoggedIn = res;
       }, err =>{
-        this.toastService.error("AUTH ERROR")
+        this.toastService.error("AUTH ERROR");
       });
     if (document.body.offsetWidth <= 720 && this.sidebarCollapsed == false) {
       this.toggleSidebar()
@@ -61,6 +61,8 @@ export class AppComponent implements OnInit {
         this.toggleSidebar()
       }
     })
+    this.toastService.success("TEST"), {
+      autoClose: false};
   }
 
   ngOnDestroy() {

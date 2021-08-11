@@ -1,9 +1,11 @@
 #topbar{
   margin-bottom: 20px;
   .page-info {
-    position: absolute;
-    left: 30px;
-    top: 26px;
+    width: 100%;
+    padding-left: 20px;
+    padding-top: 5px;
+    display: flex;
+    align-items: center;
   }
   a{
     cursor: pointer;
@@ -89,7 +91,7 @@
       font-weight: 700;
       &:hover{
         text-decoration: none;
-        color: #9a46ff;
+        color: #ddd !important;
         transition: all .3s ease;
       }
     }

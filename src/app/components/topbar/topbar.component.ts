@@ -37,9 +37,6 @@ export class TopbarComponent implements OnInit {
     }, err =>{
       this.isLoggedIn = err;
     });
-  }
-
-  ngOnInit() {
     this.router.events
     .pipe(filter(event => event instanceof NavigationEnd),
       map(() => {
@@ -55,21 +52,29 @@ export class TopbarComponent implements OnInit {
         }
         return route;
       }),
-      mergeMap(route => route.data)
+      mergeMap(route => route.data),
     )
     .subscribe(data => {
       this.currentPage = data;
       this.currentPage = this.currentPage.title;
-    });
+    })
     if(!this.currentPage){
-      console.log()
-      if(window.location.pathname == "/"){
+      this.authRequest = window.localStorage.getItem('jwt');
+      if(window.location.pathname == "/" && this.authRequest){
         this.currentPage = "Dashboard";
+        console.log(this.authRequest);
+      }
+      else if(window.location.pathname == "/" && !this.authRequest){
+        this.currentPage = "Angular Web Engine";
       }
       else{
       this.currentPage = window.location.pathname;
       }
     }
+  }
+
+  ngOnInit() {
+
   }
 
   open(content: any) {

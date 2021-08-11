@@ -29,6 +29,6 @@
     <router-outlet></router-outlet>
   </div>
 </div>
-<div *ngIf="isLoggedIn==false" class="container mt-5">
-  <app-login></app-login>
+<div id="home-route" *ngIf="isLoggedIn==false" class="container-fluid py-5 px-5">
+  <app-home></app-home>
 </div>

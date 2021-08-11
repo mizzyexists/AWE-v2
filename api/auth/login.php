@@ -13,42 +13,53 @@ if(isset($postdata) && !empty($postdata))
 
   if($result = mysqli_query($con, $sql)){
     $rows = array();
-    while($row = mysqli_fetch_assoc($result)){
-      $rows[] = $row;
-      $dbuid = $rows[0]['uid'];
-      $dbusername = $rows[0]['username'];
-      $dbhash = $rows[0]['password'];
-      $dbemail = $rows[0]['email'];
-      $dbrole = $rows[0]['role'];
-    }
-    if(password_verify($password, $dbhash) == true){
-      $payload = [
-        'iat' => time(),
-        'uid' => $generated_uid,
-        'exp' => time() + 604800,
-        'iss' => 'AWE v2',
-        'data' => [
-          'uid' => $dbuid,
-          'username' => $username,
-          'email' => $dbemail,
-          'role' => $dbrole
-        ]
-      ];
-      $secret = $dbhash;
-      $token = Token::customPayload($payload, $secret);
-      $response = [
-        'code' => 1,
-        'message' => 'Successfully Logged In',
-        'jwt' => $token,
-        'username' => $username
-      ];
-      echo json_encode($response);
+    $count = mysqli_num_rows($result); // Check if user or email exists
+    if($count == 1){
+      while($row = mysqli_fetch_assoc($result)){
+        $rows[] = $row;
+        $dbuid = $rows[0]['uid'];
+        $dbusername = $rows[0]['username'];
+        $dbhash = $rows[0]['password'];
+        $dbemail = $rows[0]['email'];
+        $dbrole = $rows[0]['role'];
+      }
+      if(password_verify($password, $dbhash) == true){
+        $payload = [
+          'iat' => time(),
+          'uid' => $generated_uid,
+          'exp' => time() + 604800,
+          'iss' => 'AWE v2',
+          'data' => [
+            'uid' => $dbuid,
+            'username' => $username,
+            'email' => $dbemail,
+            'role' => $dbrole
+          ]
+        ];
+        $secret = $dbhash;
+        $token = Token::customPayload($payload, $secret);
+        $response = [
+          'code' => 1,
+          'message' => 'Successfully Logged In',
+          'jwt' => $token,
+          'username' => $username
+        ];
+        echo json_encode($response);
+      }
+      else{
+        $response = [
+          'code' => 750,
+          'message' => 'Incorrect Password',
+          'error' => 'BAD PASSWORD'
+        ];
+        echo json_encode($response);
+      }
     }
     else{
       $response = [
-        'code' => 750,
-        'message' => 'Incorrect Password',
-        'error' => 'BAD PASSWORD'
+        'code' => 749,
+        'message' => 'Username does not exist',
+        'error' => 'BAD USER'
       ];
       echo json_encode($response);
     }

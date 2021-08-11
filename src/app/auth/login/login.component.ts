@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
     };
     this.authApi.login(loginData).subscribe(res => {
       this.response = res;
-      if(this.response.jwt && this.response.username) {
+      if(this.response.code == 1 && this.response.jwt && this.response.username) {
         window.localStorage.setItem('jwt', this.response.jwt);
         window.localStorage.setItem('loggedUsername', this.response.username);
         this.toastService.success(this.response.message);
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
     }, err => {
       window.localStorage.removeItem('jwt');
       window.localStorage.removeItem('loggedUsername');
-      this.toastService.error("Unknown Error: " + err);
+      this.toastService.error('Unknown Error: '+err);
     })
   }
 }

@@ -1,0 +1,71 @@
+.logo{
+  max-width: 400px;
+  display: block;
+  margin: auto;
+  img{
+    width: 100%;
+    display: block;
+    margin: auto;
+  }
+}
+
+h1{
+  font-weight: 800;
+  font-size: 52px;
+    color: #fff;
+}
+
+h2{
+  font-weight: 300;
+  color: #fff;
+  font-size: 35px;
+  span{
+    font-weight: 500;
+  }
+}
+
+hr{
+  border-color: #ffffff50;
+}
+
+h3{
+  color: #fff;
+  font-weight: 400;
+  font-size: 38px;
+  span{
+    font-weight: 900;
+    font-style: italic;
+  }
+}
+
+p{
+  color: #fff;
+  font-size: 22px;
+  span{
+    font-style: italic;
+    text-decoration: underline;
+  }
+}
+
+.mizzy{
+  margin-bottom: 0px;
+}
+
+.social-link{
+  color:#fff;
+  &:hover{
+    color: #ddd;
+  }
+}
+
+fa-icon{
+  padding: 10px;
+  padding-top: 0px;
+  font-size: 22px;
+}
+
+.card{
+  padding: 30px;
+  background-color: #ffffff20;
+  margin-bottom: 20px;
+}
