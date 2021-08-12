@@ -2,6 +2,12 @@
 
 ## Version 2
 
+### 2.1.2
+- Profile API retrieves user information
+  - Gets User Image for TopBar
+- Global Toast Notifications
+- Rough pass on profile page with content loading
+
 ### 2.1.1
 - Added Changlog to App
 - Started writing new PROFILE API

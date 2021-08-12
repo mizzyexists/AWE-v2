@@ -6,6 +6,7 @@ import {filter} from 'rxjs/operators';
 import {map, mergeMap} from 'rxjs/internal/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { HotToastService } from '@ngneat/hot-toast';
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
   selector: 'app-topbar',
@@ -17,12 +18,9 @@ export class TopbarComponent implements OnInit {
   faChevronDown = faChevronDown;
   isLoggedIn: any;
   currentPage: any;
-  authToken: any;
-  jwtData: any;
   authUser: any;
-  jwtUsername: any;
   authRequest: any = [];
-  authData: any;
+  profilePic: any;
 
   constructor(
     private modalService: NgbModal,
@@ -30,13 +28,21 @@ export class TopbarComponent implements OnInit {
     private toastService: HotToastService,
     private router: Router,
     private authApi: AuthService,
+    private profileApi: ProfileService,
   )
   {
-    this.authApi.authenticateUser().subscribe(res => {
+    this.authRequest[0] = window.localStorage.getItem('jwt');
+    this.authRequest[1] = window.localStorage.getItem('loggedUsername');
+    this.authApi.authenticateUser(this.authRequest).subscribe(res => {
       this.isLoggedIn = res;
     }, err =>{
       this.isLoggedIn = err;
     });
+    this.profileApi.getMyPic(this.authRequest).subscribe(res => {
+      this.profilePic = res.image;
+    }, err => {
+      this.toastService.error("Unknown Error: "+ err);
+    })
     this.router.events
     .pipe(filter(event => event instanceof NavigationEnd),
       map(() => {
@@ -62,7 +68,6 @@ export class TopbarComponent implements OnInit {
       this.authRequest = window.localStorage.getItem('jwt');
       if(window.location.pathname == "/" && this.authRequest){
         this.currentPage = "Dashboard";
-        console.log(this.authRequest);
       }
       else if(window.location.pathname == "/" && !this.authRequest){
         this.currentPage = "Angular Web Engine";

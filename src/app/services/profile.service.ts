@@ -17,6 +17,10 @@ export class ProfileService {
   ){}
 
   getMyProfile(profileRequestAuth:any){
-    return this.httpClient.post<any>(`${this.PHP_API_SERVER}/profile/getProfile.php`, profileRequestAuth);
+    return this.httpClient.post<any>(`${this.PHP_API_SERVER}/profile/getLoggedProfile.php`, profileRequestAuth);
+  }
+
+  getMyPic(profileRequestAuth:any){
+    return this.httpClient.post<any>(`${this.PHP_API_SERVER}/profile/getLoggedProfileImage.php`, profileRequestAuth);
   }
 }

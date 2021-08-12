@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   logoCollapsed = false;
   showFullLink = true;
   sidebarStatus = "";
+  authRequest: any = [];
   logoStatus = "";
   resizeObservable$!: Observable<Event>;
   resizeSubscription$!: Subscription;
@@ -30,10 +31,12 @@ export class AppComponent implements OnInit {
     private authApi: AuthService,
     private toastService: HotToastService
     ) {
-      this.authApi.authenticateUser().subscribe(res => {
+      this.authRequest[0] = window.localStorage.getItem('jwt');
+      this.authRequest[1] = window.localStorage.getItem('loggedUsername');
+      this.authApi.authenticateUser(this.authRequest).subscribe(res => {
         this.isLoggedIn = res;
       }, err =>{
-        this.toastService.error("AUTH ERROR");
+        this.toastService.error("AUTH ERROR: "+err);
       });
     if (document.body.offsetWidth <= 720 && this.sidebarCollapsed == false) {
       this.toggleSidebar()

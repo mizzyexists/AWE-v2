@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
       if(this.response.code == 1 && this.response.jwt && this.response.username) {
         window.localStorage.setItem('jwt', this.response.jwt);
         window.localStorage.setItem('loggedUsername', this.response.username);
-        this.toastService.success(this.response.message);
+        this.toastService.loading(this.response.message);
         setTimeout(() => window.location.href = './', 1000);
       }
       else {

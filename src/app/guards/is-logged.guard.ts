@@ -10,6 +10,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class IsLoggedGuard implements CanActivate {
   isLoggedIn: any;
+  authRequest: any = [];
   constructor(
     private router: Router,
     private authApi: AuthService,
@@ -19,7 +20,9 @@ export class IsLoggedGuard implements CanActivate {
     _next: ActivatedRouteSnapshot,
     _state: RouterStateSnapshot): Observable<boolean | UrlTree> | Subject<any> | Promise<boolean | UrlTree> | boolean | UrlTree {
       let subject = new Subject();
-      this.authApi.authenticateUser().subscribe(res => {
+      this.authRequest[0] = window.localStorage.getItem('jwt');
+      this.authRequest[1] = window.localStorage.getItem('loggedUsername');
+      this.authApi.authenticateUser(this.authRequest).subscribe(res => {
         this.isLoggedIn = res;
         if(this.isLoggedIn == true){
           subject.next(this.isLoggedIn);

@@ -3,9 +3,10 @@
     <h2>{{ currentPage.replace('/', '') | titlecase }}</h2>
   </div>
   <div *ngIf="isLoggedIn==true" class="userinfo" ngbDropdown>
-    <a id="userDrop" ngbDropdownToggle ><img class="user-img" src="../../assets/images/MizzyLogoBlack.png"><fa-icon [icon]="faChevronDown"></fa-icon></a>
+    <a id="userDrop" ngbDropdownToggle ><img class="user-img" src="{{profilePic}}"><fa-icon [icon]="faChevronDown"></fa-icon></a>
     <div ngbDropdownMenu aria-labelledby="userDrop">
-      <button ngbDropdownItem routerLink="profile">Profile</button>
+      <button ngbDropdownItem routerLink="profile">View Profile</button>
+      <button ngbDropdownItem routerLink="profile">Edit Profile</button>
       <button ngbDropdownItem>Settings</button>
       <button ngbDropdownItem (click)="logout()">Log Out</button>
     </div>

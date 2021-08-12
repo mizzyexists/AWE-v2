@@ -16,7 +16,6 @@ export class AuthService {
   jwtData: any;
   authUser: any;
   jwtUsername: any;
-  authRequest: any = [];
   authData: any;
   isLoggedIn: any;
 
@@ -34,12 +33,10 @@ export class AuthService {
     return this.httpClient.post<any>(`${this.PHP_API_SERVER}/auth/authorize.php`, authData);
   }
 
-  authenticateUser(): Subject<any>{
+  authenticateUser(authRequest: any): Subject<any>{
     let subject = new Subject();
-    this.authRequest[0] = window.localStorage.getItem('jwt');
-    this.authRequest[1] = window.localStorage.getItem('loggedUsername');
-    if(this.authRequest[0] && this.authRequest[1]){
-      this.authorize(this.authRequest).subscribe(res => {
+    if(authRequest[0] && authRequest[1]){
+      this.authorize(authRequest).subscribe(res => {
         if(res.code == 1 && res.tokenValidity == true){
           this.jwtData = res.tokenPayload;
           this.jwtUsername = this.jwtData.username;
