@@ -2,6 +2,11 @@
 
 ## Version 2
 
+### 2.1.3
+- Added Profile Editing
+  - All fields push to DB on edit with auth and validation
+*Next Update: Profile image uploading*
+
 ### 2.1.2
 - Profile API retrieves user information
   - Gets User Image for TopBar

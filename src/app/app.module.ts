@@ -20,6 +20,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ChangelogComponent } from './components/changelog/changelog.component';
 import { AlertsComponent } from './components/alerts/alerts.component';
+import { EditprofileComponent } from './pages/profile/editprofile/editprofile.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AlertsComponent } from './components/alerts/alerts.component';
     HomeComponent,
     FooterComponent,
     ChangelogComponent,
-    AlertsComponent
+    AlertsComponent,
+    EditprofileComponent
   ],
   imports: [
     BrowserModule,

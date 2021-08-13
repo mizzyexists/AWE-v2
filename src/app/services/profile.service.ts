@@ -23,4 +23,8 @@ export class ProfileService {
   getMyPic(profileRequestAuth:any){
     return this.httpClient.post<any>(`${this.PHP_API_SERVER}/profile/getLoggedProfileImage.php`, profileRequestAuth);
   }
+
+  editMyProfile(profileData: any){
+    return this.httpClient.post<any>(`${this.PHP_API_SERVER}/profile/editLoggedProfile.php`, profileData);
+  }
 }

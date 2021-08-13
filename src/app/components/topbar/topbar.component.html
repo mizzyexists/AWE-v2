@@ -6,7 +6,7 @@
     <a id="userDrop" ngbDropdownToggle ><img class="user-img" src="{{profilePic}}"><fa-icon [icon]="faChevronDown"></fa-icon></a>
     <div ngbDropdownMenu aria-labelledby="userDrop">
       <button ngbDropdownItem routerLink="profile">View Profile</button>
-      <button ngbDropdownItem routerLink="profile">Edit Profile</button>
+      <button ngbDropdownItem routerLink="edit-profile">Edit Profile</button>
       <button ngbDropdownItem>Settings</button>
       <button ngbDropdownItem (click)="logout()">Log Out</button>
     </div>

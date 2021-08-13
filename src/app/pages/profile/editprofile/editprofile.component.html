@@ -1,0 +1,69 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-6 mb-4">
+      <div class="card">
+        <div *ngIf="fetchedUserData.username" class="card-body">
+          <h5 class="card-title">
+            <img src="{{fetchedUserData.image}}"> {{fetchedUserData.username | titlecase}}
+          </h5>
+          <hr />
+          <form [formGroup]="editUserForm" (ngSubmit)="onUpdate()" class="px-5">
+            <div class="form-group">
+              <input type="text" formControlName="username" placeholder="Username" name="username" class="form-control" id="username">
+            </div>
+            <div class="form-group">
+              <input type="email" formControlName="email" placeholder="E-Mail" name="email" class="form-control" id="email">
+            </div>
+            <div class="form-group">
+              <input type="tel" formControlName="phone" placeholder="Phone" name="phone" class="form-control" id="phone">
+            </div>
+            <div class="form-group">
+              <input type="text" formControlName="fname" placeholder="First Name" name="fname" class="form-control" id="fname">
+            </div>
+            <div class="form-group">
+              <input type="text" formControlName="lname" placeholder="Last Name" name="lname" class="form-control" id="lname">
+            </div>
+            <div class="form-group">
+              <input type="text" formControlName="street" placeholder="Street Address" name="street" class="form-control" id="street">
+            </div>
+            <div class="form-group">
+              <input type="text" formControlName="city" placeholder="City" name="city" class="form-control" id="city">
+            </div>
+            <div class="form-group">
+              <input type="text" formControlName="state" placeholder="State" name="state" class="form-control" id="state">
+            </div>
+            <div class="form-group">
+              <input type="text" formControlName="country" placeholder="Country" name="country" class="form-control" id="country">
+            </div>
+            <div class="form-group">
+              <input type="url" formControlName="twitter" placeholder="Twitter" name="twitter" class="form-control" id="twitter">
+            </div>
+            <div class="form-group">
+              <input type="url" formControlName="instagram" placeholder="Instagram" name="instagram" class="form-control" id="instagram">
+            </div>
+            <div class="form-group">
+              <input type="url" formControlName="facebook" placeholder="Facebook" name="facebook" class="form-control" id="facebook">
+            </div>
+            <div class="form-group">
+              <input type="url" formControlName="linkedin" placeholder="LinkedIn" name="linkedin" class="form-control" id="linkedin">
+            </div>
+            <div class="form-group">
+              <input type="url" formControlName="youtube" placeholder="Youtube" name="youtube" class="form-control" id="youtube">
+            </div>
+            <!-- <div class="form-group">
+              <re-captcha class="text-center d-flex justify-content-center" formControlName="reCaptcha" name="reCaptcha" id="reCaptcha" (resolved)="resolved($event)" siteKey='6LdeStsZAAAAAO_XpcvZ0HlHeD-7iR0t6ZR_HJrD'></re-captcha>
+            </div> -->
+            <button class="btn btn--primary">Save Changes</button><a href="/profile/" class="btn btn-secondary ml-2">Cancel</a>
+          </form>
+        </div>
+        <div *ngIf="!fetchedUserData.username" class='card-body'>
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
