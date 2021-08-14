@@ -7,6 +7,7 @@ import {map, mergeMap} from 'rxjs/internal/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { ProfileService } from '../../services/profile.service';
+import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'app-topbar',
@@ -21,6 +22,8 @@ export class TopbarComponent implements OnInit {
   authUser: any;
   authRequest: any = [];
   profilePic: any;
+  userRole: any;
+  maintenanceMode: any;
 
   constructor(
     private modalService: NgbModal,
@@ -29,8 +32,10 @@ export class TopbarComponent implements OnInit {
     private router: Router,
     private authApi: AuthService,
     private profileApi: ProfileService,
+    private appApi: AppService
   )
   {
+    // Authenticate logged in user
     this.authRequest[0] = window.localStorage.getItem('jwt');
     this.authRequest[1] = window.localStorage.getItem('loggedUsername');
     this.authApi.authenticateUser(this.authRequest).subscribe(res => {
@@ -38,11 +43,22 @@ export class TopbarComponent implements OnInit {
     }, err =>{
       this.isLoggedIn = err;
     });
+
+    // Get user avatar
     this.profileApi.getMyPic(this.authRequest).subscribe(res => {
       this.profilePic = res.image;
     }, err => {
       this.toastService.error("Unknown Error: "+ err);
-    })
+    });
+
+    // Get user permissions role
+    this.authApi.getMyRole(this.authRequest).subscribe(res => {
+      this.userRole = res.role;
+    }, err => {
+      this.toastService.error("Unknown Error: "+ err);
+    });
+
+    // Get title of navigated page for top bar
     this.router.events
     .pipe(filter(event => event instanceof NavigationEnd),
       map(() => {
@@ -64,6 +80,8 @@ export class TopbarComponent implements OnInit {
       this.currentPage = data;
       this.currentPage = this.currentPage.title;
     })
+
+    // Fallback for navigated page title if browser is refreshed
     if(!this.currentPage){
       this.authRequest = window.localStorage.getItem('jwt');
       if(window.location.pathname == "/" && this.authRequest){
@@ -76,17 +94,25 @@ export class TopbarComponent implements OnInit {
       this.currentPage = window.location.pathname;
       }
     }
+
+    // Check if Maintenance Mode is active
+    this.appApi.getAppSettings().subscribe(res => {
+      this.maintenanceMode = res[0]['setting_value'];
+    }, (err: any) =>{
+      console.log(err);
+    });
   }
 
   ngOnInit() {
 
   }
 
+  // Modal service
   open(content: any) {
     this.modalService.open(content, { centered: true, size: 'lg' });
   }
 
-
+  // Logout user and delete authentication token data
   logout() {
     this.isLoggedIn = false;
     window.localStorage.removeItem('jwt');

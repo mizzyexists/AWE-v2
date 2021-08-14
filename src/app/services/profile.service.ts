@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from  'rxjs';
 import { ServerInfo } from '../models/serverinfo';
-import { HotToastService } from '@ngneat/hot-toast';
 
 @Injectable({
   providedIn: 'root'
@@ -13,18 +12,17 @@ export class ProfileService {
 
   constructor(
     private httpClient: HttpClient,
-    private toastService: HotToastService,
   ){}
 
-  getMyProfile(profileRequestAuth:any){
+  getMyProfile(profileRequestAuth:any): Observable<any>{
     return this.httpClient.post<any>(`${this.PHP_API_SERVER}/profile/getLoggedProfile.php`, profileRequestAuth);
   }
 
-  getMyPic(profileRequestAuth:any){
+  getMyPic(profileRequestAuth:any): Observable<any>{
     return this.httpClient.post<any>(`${this.PHP_API_SERVER}/profile/getLoggedProfileImage.php`, profileRequestAuth);
   }
 
-  editMyProfile(profileData: any){
-    return this.httpClient.post<any>(`${this.PHP_API_SERVER}/profile/editLoggedProfile.php`, profileData);
+  editMyProfile(profileData: any): Observable<any>{
+    return this.httpClient.put<any>(`${this.PHP_API_SERVER}/profile/editLoggedProfile.php`, profileData);
   }
 }

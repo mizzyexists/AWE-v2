@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 // import { RecaptchaService } from '../../../services/recaptcha.service';
 import { AuthService } from '../../services/auth.service';
 import { HotToastService } from '@ngneat/hot-toast';
+import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'app-register',
@@ -14,11 +15,12 @@ export class RegisterComponent implements OnInit {
   recaptcha: any;
   captchaGRes: any;
   responseData: any;
-  registrationStatus: any = 'closed';
+  openRegistration: any;
   constructor(
     private formBuilder:FormBuilder,
     private authApi: AuthService,
-    private toastService: HotToastService
+    private toastService: HotToastService,
+    private appApi: AppService
   )
   {
     this.registerForm = this.formBuilder.group({
@@ -27,6 +29,12 @@ export class RegisterComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required],
       password2: ['', Validators.required],
+    });
+    this.appApi.getAppSettings().subscribe(res => {
+      this.openRegistration = res[1]['setting_value'];
+      console.log(this.openRegistration);
+    }, err =>{
+      console.log(err);
     });
   }
 

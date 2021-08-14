@@ -2,6 +2,17 @@
 
 ## Version 2
 
+### 2.2.0
+- Major updates in regards to Application API
+  - Maintenance Mode Implemented
+  - Registration Open / Closed now controlled from DB
+  - Alerts now pull from DB (needs more work)
+- Permissions System
+  - User Roles have been implemented
+  - Admins can bypass Maintenance Mode
+  - Major security improvements to isLogged Guard
+- Profile Page Overhaul
+
 ### 2.1.3
 - Added Profile Editing
   - All fields push to DB on edit with auth and validation

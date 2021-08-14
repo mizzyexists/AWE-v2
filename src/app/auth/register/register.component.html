@@ -1,5 +1,5 @@
 <div class="row">
-  <div *ngIf="registrationStatus=='open'" class="col login-form text-center">
+  <div *ngIf="openRegistration=='true'" class="col login-form text-center">
     <img class="mb-4" src="./assets/images/AWEBlack.png" width="250px"/>
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="px-5">
         <div class="form-group">
@@ -20,7 +20,7 @@
         <button class="btn btn--primary">Register</button>
         </form>
       </div>
-      <div *ngIf="registrationStatus!='open' || !registrationStatus" class="col text-center py-5">
+      <div *ngIf="openRegistration!='true' || !openRegistration" class="col text-center py-5">
         <h1>Sorry!</h1>
         <h2>Registration is currently closed</h2>
       </div>

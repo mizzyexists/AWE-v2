@@ -21,6 +21,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ChangelogComponent } from './components/changelog/changelog.component';
 import { AlertsComponent } from './components/alerts/alerts.component';
 import { EditprofileComponent } from './pages/profile/editprofile/editprofile.component';
+import { AdminMenuComponent } from './pages/admin-menu/admin-menu.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { EditprofileComponent } from './pages/profile/editprofile/editprofile.co
     FooterComponent,
     ChangelogComponent,
     AlertsComponent,
-    EditprofileComponent
+    EditprofileComponent,
+    AdminMenuComponent
   ],
   imports: [
     BrowserModule,

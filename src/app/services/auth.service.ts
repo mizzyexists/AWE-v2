@@ -33,17 +33,25 @@ export class AuthService {
     return this.httpClient.post<any>(`${this.PHP_API_SERVER}/auth/authorize.php`, authData);
   }
 
+  getMyRole(profileRequestAuth:any): Observable<any>{
+    return this.httpClient.post<any>(`${this.PHP_API_SERVER}/auth/getLoggedRole.php`, profileRequestAuth);
+  }
+
   authenticateUser(authRequest: any): Subject<any>{
     let subject = new Subject();
+    // Check for token auth data
     if(authRequest[0] && authRequest[1]){
+      // If logged in
       this.authorize(authRequest).subscribe(res => {
         if(res.code == 1 && res.tokenValidity == true){
+          // Extract data from token
           this.jwtData = res.tokenPayload;
           this.jwtUsername = this.jwtData.username;
           this.isLoggedIn = true;
           subject.next(this.isLoggedIn);
         }
         else{
+          // Failed validity check
           window.localStorage.removeItem('jwt');
           window.localStorage.removeItem('loggedUsername');
           this.toastService.error(res.message);
@@ -51,6 +59,7 @@ export class AuthService {
           subject.next(this.isLoggedIn);
         }
       }, err => {
+        // Catch unknown errors
         window.localStorage.removeItem('jwt');
         window.localStorage.removeItem('loggedUsername');
         this.toastService.error(err.statusText);
@@ -59,11 +68,12 @@ export class AuthService {
       });
     }
     else{
+      // If not logged in
       this.authorize(null).subscribe(_res => {
-        // this.toastService.error(res.message);
         this.isLoggedIn = false;
         subject.next(this.isLoggedIn);
       }, err => {
+        // Catch unknown errors
         this.toastService.error("Unknown Error: "+ err);
         this.isLoggedIn = false;
         subject.next(this.isLoggedIn);

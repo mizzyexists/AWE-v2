@@ -1,22 +1,89 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-12 mb-4">
+    <div class="col-lg-6 mb-4">
       <div class="card">
         <div *ngIf="fetchedUserData.username" class="card-body">
-          <h5 class="card-title">
-            <img src="{{fetchedUserData.image}}"> {{fetchedUserData.username | titlecase}}
-          </h5>
-          <hr />
-          <p>{{fetchedUserData.fname}} {{fetchedUserData.lname}}</p>
-          <p>Role: {{fetchedUserData.role | titlecase}}</p>
-          <p>{{fetchedUserData.email}}</p>
-          <p>{{fetchedUserData.phone}}</p>
-          <p>Address:<br/>{{fetchedUserData.street}},<br/>{{fetchedUserData.city}}, {{fetchedUserData.state}}<br/>{{fetchedUserData.country}}</p>
-          <a class="social-link" href="{{fetchedUserData.twitter}}" target="_blank"><fa-icon [icon]="faTwitter"></fa-icon></a>
-          <a class="social-link" href="{{fetchedUserData.instagram}}" target="_blank"><fa-icon [icon]="faInsta"></fa-icon></a>
-          <a class="social-link" href="{{fetchedUserData.facebook}}" target="_blank"><fa-icon [icon]="faFacebook"></fa-icon></a>
-          <a class="social-link" href="{{fetchedUserData.linkedin}}" target="_blank"><fa-icon [icon]="faLinkedIn"></fa-icon></a>
-          <a class="social-link" href="{{fetchedUserData.youtube}}" target="_blank"><fa-icon [icon]="faYoutube"></fa-icon></a>
+          <div (click)="open(uploadImage)" class="image-container">
+            <img src="{{fetchedUserData.image}}"/>
+            <div class="upload-overlay">
+              <span class="upload-icon"><fa-icon [icon]="faCamera"></fa-icon></span>
+              <span class="upload-text">Edit Avatar</span>
+            </div>
+          </div>
+          <h2 class="full-name">{{fetchedUserData.fname}} {{fetchedUserData.lname}}</h2>
+          <p class="username">@{{fetchedUserData.username}}</p>
+
+          <!-- Role Cases -->
+          <p *ngIf="fetchedUserData.role == 'user' || !fetchedUserData.role" class="role">{{fetchedUserData.role | uppercase}}</p>
+          <p *ngIf="fetchedUserData.role == 'vip'" class="role vip">{{fetchedUserData.role | uppercase}}</p>
+          <p *ngIf="fetchedUserData.role == 'admin'" class="role admin">{{fetchedUserData.role | uppercase}}</p>
+          <p *ngIf="fetchedUserData.role == 'super-admin'" class="role super-admin">{{fetchedUserData.role | uppercase}}</p>
+          <!-- End Role Cases -->
+
+          <hr/>
+          <p class="location" *ngIf="fetchedUserData.city && fetchedUserData.state">{{fetchedUserData.city}}, {{fetchedUserData.state}}</p>
+          <a class="phone" href="tel:{{fetchedUserData.phone}}">{{fetchedUserData.phone}}</a>
+          <a class="email" href="mailto:{{fetchedUserData.email}}">{{fetchedUserData.email}}</a>
+          <hr/>
+          <div class="social-links">
+            <div *ngIf="fetchedUserData.twitter" class="twitter row">
+              <div class="col-2">
+                <fa-icon [icon]="faTwitter"></fa-icon>
+              </div>
+              <div class="col-4">
+                <p class="mb-0 text-left">Twitter</p>
+              </div>
+              <div class="col-4 offset-lg-1">
+                <a class="social-link" href="https://twitter.com/{{fetchedUserData.twitter}}" target="_blank">@{{fetchedUserData.twitter}}</a>
+              </div>
+            </div>
+            <div *ngIf="fetchedUserData.instagram" class="instagram row">
+              <div class="col-2">
+                <fa-icon [icon]="faInsta"></fa-icon>
+              </div>
+              <div class="col-4">
+                <p class="mb-0 text-left">Instagram</p>
+              </div>
+              <div class="col-4 offset-lg-1">
+                <a class="social-link" href="https://instagram.com/{{fetchedUserData.instagram}}" target="_blank">{{fetchedUserData.instagram}}</a>
+              </div>
+            </div>
+            <div *ngIf="fetchedUserData.facebook" class="facebook row">
+              <div class="col-2">
+                <fa-icon [icon]="faFacebook"></fa-icon>
+              </div>
+              <div class="col-4">
+                <p class="mb-0 text-left">Facebook</p>
+              </div>
+              <div class="col-4 offset-lg-1">
+                <a class="social-link" href="https://facebook.com/{{fetchedUserData.facebook}}" target="_blank">{{fetchedUserData.facebook}}</a>
+              </div>
+            </div>
+            <div *ngIf="fetchedUserData.linkedin" class="linkedin row">
+              <div class="col-2">
+                <fa-icon [icon]="faLinkedIn"></fa-icon>
+              </div>
+              <div class="col-4">
+                <p class="mb-0 text-left">LinkedIn</p>
+              </div>
+              <div class="col-4 offset-lg-1">
+                <a class="social-link" href="https://www.linkedin.com/in/{{fetchedUserData.linkedin}}" target="_blank">{{fetchedUserData.linkedin}}</a>
+              </div>
+            </div>
+            <div *ngIf="fetchedUserData.youtube" class="youtube row">
+              <div class="col-2">
+                <fa-icon [icon]="faYoutube"></fa-icon>
+              </div>
+              <div class="col-4">
+                <p class="mb-0 text-left">YouTube</p>
+              </div>
+              <div class="col-4 offset-lg-1">
+                <a class="social-link" href="https://www.youtube.com/{{fetchedUserData.youtube}}" target="_blank">{{fetchedUserData.youtube}}</a>
+              </div>
+            </div>
+          </div>
+          <hr/>
+          <a class="btn btn--primary" style="float:right;" routerLink="/edit-profile">Edit Profile</a>
         </div>
         <div *ngIf="!fetchedUserData.username" class='card-body'>
           <div class="d-flex justify-content-center">
@@ -27,5 +94,44 @@
         </div>
       </div>
     </div>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <nav ngbNav #nav="ngbNav" class="nav-tabs">
+            <ng-container ngbNavItem>
+              <a ngbNavLink>Menu 1</a>
+              <ng-template ngbNavContent>
+                <p>Menu 1 body</p>
+              </ng-template>
+            </ng-container>
+            <ng-container ngbNavItem>
+              <a ngbNavLink>Menu 2</a>
+              <ng-template ngbNavContent>
+                <p>Menu 2 Body</p>
+              </ng-template>
+            </ng-container>
+            <ng-container ngbNavItem>
+              <a ngbNavLink>Menu 3</a>
+              <ng-template ngbNavContent>
+                <p>Menu 3 Body</p>
+              </ng-template>
+            </ng-container>
+          </nav>
+          <div [ngbNavOutlet]="nav" class="mt-4"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+<ng-template #uploadImage let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="register-modal">Upload New Avatar</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Test
+  </div>
+</ng-template>

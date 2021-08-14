@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faFacebook, faInstagram, faLinkedin, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HotToastService } from '@ngneat/hot-toast';
 import { ProfileService } from '../../services/profile.service';
 
@@ -16,12 +18,15 @@ export class ProfileComponent implements OnInit {
   faFacebook = faFacebook;
   faLinkedIn = faLinkedin;
   faYoutube = faYoutube;
+  faCamera = faCamera;
   constructor(
     private profileApi: ProfileService,
-    private toastService: HotToastService
+    private toastService: HotToastService,
+    private modalService: NgbModal,
   ) { }
 
   ngOnInit(): void {
+    // Get logged in user's profile data
     this.authRequest[0] = window.localStorage.getItem('jwt');
     this.authRequest[1] = window.localStorage.getItem('loggedUsername');
     if(this.authRequest[0] && this.authRequest[1]){
@@ -48,6 +53,11 @@ export class ProfileComponent implements OnInit {
     })
     }
     console.log(this.fetchedUserData);
+  }
+
+  // Modal Service
+  open(content: any) {
+    this.modalService.open(content, { centered: true, size: 'lg' });
   }
 
 }
