@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faChevronDown, faInfo } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {filter} from 'rxjs/operators';
 import {map, mergeMap} from 'rxjs/internal/operators';
@@ -17,6 +17,8 @@ import { AppService } from '../../services/app.service';
 export class TopbarComponent implements OnInit {
 
   faChevronDown = faChevronDown;
+  faBell = faBell;
+  faInfo = faInfo;
   isLoggedIn: any;
   currentPage: any;
   authUser: any;
@@ -24,6 +26,8 @@ export class TopbarComponent implements OnInit {
   profilePic: any;
   userRole: any;
   maintenanceMode: any;
+  notiCount: any = '2';
+  notifications: any = [{'title': 'This is a title','body': 'This is a noti Body', 'slug':'/profile', 'read': 'false'}, {'title': 'This is another title','body': 'Welcome to AWE', 'slug':'/clients', 'read': 'true'}];
 
   constructor(
     private modalService: NgbModal,
@@ -119,6 +123,11 @@ export class TopbarComponent implements OnInit {
     window.localStorage.removeItem('loggedUsername');
     this.toastService.warning('You have been logged out');
     setTimeout(() => window.location.href = './', 1500);
+  }
+
+  // Acknoledge Notification with passed slug
+  ackNoti(slug: any){
+    this.router.navigate([slug]);
   }
 
 }
