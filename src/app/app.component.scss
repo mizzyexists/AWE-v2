@@ -100,6 +100,29 @@ $sbcolor: rgb(63, 81, 181, 0.5);
         }
       }
     }
+    &.mini{
+      a{
+        .mini-text{
+          display: none;
+          position: absolute;
+          text-align: right;
+          max-width: 150px;
+          background-color: #fff;
+          padding: 10px;
+          border-radius: 3px;
+          color: #000;
+          font-size: 18px;
+          left: 80px;
+          margin-top: -64px;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+        &:hover{
+          .mini-text{
+            display: block;
+          }
+        }
+      }
+    }
   }
 }
 

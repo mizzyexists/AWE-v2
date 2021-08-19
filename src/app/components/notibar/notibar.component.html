@@ -1,0 +1,13 @@
+<div class="noti-container" ngbDropdown #notiDrop="ngbDropdown" autoClose="outside">
+  <a id="notiDrop" ngbDropdownToggle><fa-icon [icon]="faBell"></fa-icon><span *ngIf="notiCount" class="notiIndicator">{{notiCount}}</span></a>
+  <div ngbDropdownMenu aria-labelledby="notiDrop">
+      <a *ngIf="notiCount > 0" (click)="clearNotis(); notiDrop.close()" class="clearAllBtn">Clear All Notifications<span class="pl-1">({{notiCount}})</span></a>
+      <div class="notiItem" *ngFor="let noti of notifications" ngbDropdownItem (click)="navigateNoti(noti.noti_id,noti.slug)">
+        <span *ngIf="noti.readbyuser=='false'" class="unread-text">NEW</span>
+        <p *ngIf="noti.readbyuser=='false'" class="unread"><b>{{noti.title}}</b></p>
+        <p *ngIf="noti.readbyuser=='false'" class="unread">{{noti.body}}</p>
+        <p *ngIf="noti.readbyuser=='true'"><b>{{noti.title}}</b></p>
+        <p *ngIf="noti.readbyuser=='true'">{{noti.body}}</p>
+      </div>
+  </div>
+</div>

@@ -25,4 +25,17 @@ export class ProfileService {
   editMyProfile(profileData: any): Observable<any>{
     return this.httpClient.put<any>(`${this.PHP_API_SERVER}/profile/editLoggedProfile.php`, profileData);
   }
+
+  getMyNotis(profileRequestAuth:any): Observable<any>{
+    return this.httpClient.post<any>(`${this.PHP_API_SERVER}/profile/getNotifications.php`, profileRequestAuth);
+  }
+
+  ackNoti(profileRequestAuth:any): Observable<any>{
+    return this.httpClient.post<any>(`${this.PHP_API_SERVER}/profile/acknowledgeNotification.php`, profileRequestAuth);
+  }
+
+  clearNotis(profileRequestAuth:any): Observable<any>{
+    return this.httpClient.post<any>(`${this.PHP_API_SERVER}/profile/clearNotification.php`, profileRequestAuth);
+  }
+
 }

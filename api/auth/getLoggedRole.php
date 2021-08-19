@@ -18,7 +18,6 @@ if(isset($postdata) && !empty($postdata))
     }
     if($dbhash){
       if($tokenValidity = Token::validate($authToken, $dbhash) == true){
-        $payloadContent = Token::getPayload($authToken, $dbhash);
         if($result = mysqli_query($con, $sql)){
           while($row = mysqli_fetch_assoc($result)){
             $rows[] = $row;

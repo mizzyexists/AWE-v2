@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdown, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
@@ -22,6 +22,7 @@ import { ChangelogComponent } from './components/changelog/changelog.component';
 import { AlertsComponent } from './components/alerts/alerts.component';
 import { EditprofileComponent } from './pages/profile/editprofile/editprofile.component';
 import { AdminMenuComponent } from './pages/admin-menu/admin-menu.component';
+import { NotibarComponent } from './components/notibar/notibar.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AdminMenuComponent } from './pages/admin-menu/admin-menu.component';
     ChangelogComponent,
     AlertsComponent,
     EditprofileComponent,
-    AdminMenuComponent
+    AdminMenuComponent,
+    NotibarComponent
   ],
   imports: [
     BrowserModule,

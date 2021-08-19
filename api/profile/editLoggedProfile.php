@@ -24,7 +24,6 @@ if(isset($postdata) && !empty($postdata))
       $dbhash = $rows[0]['password'];
     }
     if($tokenValidity = Token::validate($authToken, $dbhash) == true){
-      $payloadContent = Token::getPayload($authToken, $dbhash);
       if($sqlres = mysqli_query($con, $editsql)){
         $response = [
           'code' => 1,

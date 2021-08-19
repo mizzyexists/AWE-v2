@@ -18,10 +18,10 @@
     </div>
     <div *ngIf="sidebarCollapsed==true" class="sidebar-nav mini">
       <ul>
-        <a class="{{logoStatus}}" routerLink="/"><li><fa-icon class="menu-icon" [icon]="faChalkboard"></fa-icon></li></a>
-        <a class="{{logoStatus}}" routerLink="/clients"><li><fa-icon class="menu-icon" [icon]="faUserFriends"></fa-icon></li></a>
-        <a class="{{logoStatus}}" routerLink="/projects"><li><fa-icon class="menu-icon" [icon]="faProjectDiagram"></fa-icon></li></a>
-        <a class="{{logoStatus}}" routerLink="/tasks"><li><fa-icon class="menu-icon" [icon]="faStickyNote"></fa-icon></li></a>
+        <a class="{{logoStatus}}" routerLink="/"><li><fa-icon class="menu-icon" [icon]="faChalkboard"></fa-icon></li><span class="mini-text">Dashboard</span></a>
+        <a class="{{logoStatus}}" routerLink="/clients"><li><fa-icon class="menu-icon" [icon]="faUserFriends"></fa-icon></li><span class="mini-text">Clients</span></a>
+        <a class="{{logoStatus}}" routerLink="/projects"><li><fa-icon class="menu-icon" [icon]="faProjectDiagram"></fa-icon></li><span class="mini-text">Projects</span></a>
+        <a class="{{logoStatus}}" routerLink="/tasks"><li><fa-icon class="menu-icon" [icon]="faStickyNote"></fa-icon></li><span class="mini-text">Tasks</span></a>
       </ul>
     </div>
   </div>

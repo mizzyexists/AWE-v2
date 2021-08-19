@@ -4,15 +4,7 @@
   </div>
   <!-- Maintenance Mode Admin Bypass Check / Logged In User Check -->
   <div *ngIf="isLoggedIn==true && maintenanceMode=='false' || userRole=='admin' || userRole=='super-admin'" class="userinfo">
-    <div class="noti-container" ngbDropdown><a id="notiDrop" ngbDropdownToggle><fa-icon [icon]="faBell"></fa-icon><span *ngIf="notiCount" class="notiIndicator">{{notiCount}}</span></a>
-      <div ngbDropdownMenu aria-labelledby="notiDrop">
-          <div class="notiItem" *ngFor="let noti of notifications" ngbDropdownItem (click)="ackNoti(noti.slug)">
-            <p><b>{{noti.title}}</b></p>
-            <p>{{noti.body}}</p>
-            <span *ngIf="noti.read=='false'" class="unread-text">NEW</span>
-          </div>
-      </div>
-    </div>
+    <app-notibar></app-notibar>
     <div class="user-container" ngbDropdown display="dynamic">
     <a id="userDrop" ngbDropdownToggle ><img class="user-img" src="{{profilePic}}"><fa-icon class="arrow" [icon]="faChevronDown"></fa-icon></a>
     <div ngbDropdownMenu aria-labelledby="userDrop">

@@ -16,25 +16,34 @@ if(isset($postdata) && !empty($postdata))
       $rows[] = $row;
       $dbhash = $rows[0]['password'];
     }
-    if($tokenValidity = Token::validate($authToken, $dbhash) == true){
-      $payloadContent = Token::getPayload($authToken, $dbhash);
-      if($result = mysqli_query($con, $sql)){
-        while($row = mysqli_fetch_assoc($result)){
-          $rows[] = $row;
-          $db_image = $rows[0]['profile_image'];
+    if($dbhash){
+      if($tokenValidity = Token::validate($authToken, $dbhash) == true){
+        if($result = mysqli_query($con, $sql)){
+          while($row = mysqli_fetch_assoc($result)){
+            $rows[] = $row;
+            $db_image = $rows[0]['profile_image'];
+          }
+          $response = [
+            'code' => 1,
+            'image' => $db_image
+          ];
+          echo json_encode($response);
         }
+      }
+      else{
         $response = [
-          'code' => 1,
-          'image' => $db_image
+          'code' => 355,
+          'message' => 'Could not authenticate. Please login again.',
+          'error' => 'BAD TOKEN'
         ];
         echo json_encode($response);
       }
     }
     else{
       $response = [
-        'code' => 355,
-        'message' => 'Could not authenticate. Please login again.',
-        'error' => 'BAD TOKEN'
+        'code' => 365,
+        'message' => 'No token was given to authenticate',
+        'error' => 'NO TOKEN'
       ];
       echo json_encode($response);
     }

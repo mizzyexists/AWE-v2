@@ -1,6 +1,15 @@
 # CHANGELOG
 
-## Version 2
+## Version 2 - Alpha Stage
+
+### 2.3.0
+- Created Revamped Notification API
+  - Retrieves notifications
+  - Displays notifications in dropdown
+  - Counts unread notifications
+  - Ability to clear individual notifications
+  - Ability to clear ALL notifications
+*Still needs notification generation for multiple scenarios*
 
 ### 2.2.0
 - Major updates in regards to Application API

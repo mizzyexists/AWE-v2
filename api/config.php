@@ -1,5 +1,4 @@
 <?php
-include "security.php";
 //DB INFORMATION
 $dbaddy = "srv-captain--general-db"; // MySQL Database Address
 $dbuser = "mizzy"; // MySQL Database User

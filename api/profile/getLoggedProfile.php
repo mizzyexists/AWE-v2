@@ -17,7 +17,6 @@ if(isset($postdata) && !empty($postdata))
       $dbhash = $rows[0]['password'];
     }
     if($tokenValidity = Token::validate($authToken, $dbhash) == true){
-      $payloadContent = Token::getPayload($authToken, $dbhash);
       if($result = mysqli_query($con, $sql)){
         while($row = mysqli_fetch_assoc($result)){
           $rows[] = $row;

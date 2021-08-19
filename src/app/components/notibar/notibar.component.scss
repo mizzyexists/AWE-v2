@@ -1,0 +1,93 @@
+.noti-container{
+  padding: 5px;
+  margin-right: 20px;
+  .dropdown-menu{
+    width: 300px;
+    white-space: normal;
+    padding: 0px;
+    margin-top: 32px;
+    .dropdown-item{
+      white-space: normal;
+      margin-bottom: 0px;
+      padding: 15px;
+      cursor: pointer;
+    }
+  }
+  fa-icon{
+    color: #000;
+    cursor: pointer;
+    &:hover{
+      color: #5e1dc1;
+    }
+  }
+  .dropdown-menu{
+    margin-top: 31px;
+    .dropdown-item:active{
+      background-color: #5e1dc1;
+    }
+  }
+  .dropdown-toggle::after {
+    display: none;
+  }
+  .notiIndicator{
+    display: block;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius: 50px;
+    background-color: #5e1dc1;
+    top: -2px;
+    right: -8px;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+  }
+  fa-icon{
+    font-size: 24px;
+  }
+  .clearAllBtn {
+    text-align: center;
+    display: block;
+    background: #8124ff;
+    padding: 8px;
+    color: #fff;
+    cursor: pointer;
+    &:hover{
+      box-shadow: rgba(0, 0, 0, 0.15) inset 0px 5px 15px;
+      text-decoration: none;
+    }
+    &:active{
+      box-shadow: rgba(0, 0, 0, 0.45) inset 0px 5px 15px;
+    }
+  }
+  .notiItem{
+    padding: 0px;
+    &:not(:last-child){
+    border-bottom: 1px solid #ececec;
+    }
+    p{
+      margin-bottom: 0px;
+      color: #b9b9b9;
+      &.unread{
+        color: #000;
+      }
+    }
+    .unread-text {
+        color: #5e1dc1;
+        font-size: 14px;
+        font-style: italic;
+        font-weight: bold;
+        position: absolute;
+        right: 12px;
+        margin-top: -12px;
+    }
+    &:active{
+      p{
+        color: #fff !important;
+      }
+      .unread-text{
+        color: #fff !important;
+      }
+    }
+  }
+}
