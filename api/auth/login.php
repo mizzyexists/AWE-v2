@@ -44,6 +44,7 @@ if(isset($postdata) && !empty($postdata))
           'jwt' => $token,
           'username' => $username
         ];
+        header('Content-type: application/json');
         echo json_encode($response);
       }
       else{
@@ -52,6 +53,7 @@ if(isset($postdata) && !empty($postdata))
           'message' => 'Incorrect Password',
           'error' => 'BAD PASSWORD'
         ];
+        header('Content-type: application/json');
         echo json_encode($response);
       }
     }
@@ -61,6 +63,7 @@ if(isset($postdata) && !empty($postdata))
         'message' => 'Username does not exist',
         'error' => 'BAD USER'
       ];
+      header('Content-type: application/json');
       echo json_encode($response);
     }
   }

@@ -38,6 +38,7 @@ if(isset($postdata) && !empty($postdata))
             'notifications' => $notis,
             'unread' => $newnotis
           ];
+          header('Content-type: application/json');
           echo json_encode($response);
         }
       } else{
@@ -46,6 +47,7 @@ if(isset($postdata) && !empty($postdata))
           'message' => 'There was an error fetching notifications',
           'error' => 'BAD NOTI CALL'
         ];
+        header('Content-type: application/json');
         echo json_encode($response);
       }
     }
@@ -55,6 +57,7 @@ if(isset($postdata) && !empty($postdata))
         'message' => 'Could not authenticate. Please login again.',
         'error' => 'BAD TOKEN'
       ];
+      header('Content-type: application/json');
       echo json_encode($response);
     }
   }
@@ -64,6 +67,7 @@ if(isset($postdata) && !empty($postdata))
     'message' => 'No token was given to authenticate',
     'error' => 'NO TOKEN'
   ];
+  header('Content-type: application/json');
   echo json_encode($response);
   }
 }

@@ -21,7 +21,6 @@ if(isset($postdata) && !empty($postdata))
     if($tokenValidity = Token::validate($authToken, $dbhash) == true){
       $notisql = "UPDATE notifications SET readbyuser = 'true' WHERE uid = '$authUid'";
       if(mysqli_query($con, $notisql)){
-        echo 'YAY YOU READ THEM ALL';
       }
     }
     else{
@@ -30,6 +29,7 @@ if(isset($postdata) && !empty($postdata))
         'message' => 'Could not authenticate. Please login again.',
         'error' => 'BAD TOKEN'
       ];
+      header('Content-type: application/json');
       echo json_encode($response);
     }
   }
@@ -39,6 +39,7 @@ if(isset($postdata) && !empty($postdata))
     'message' => 'No token was given to authenticate',
     'error' => 'NO TOKEN'
   ];
+  header('Content-type: application/json');
   echo json_encode($response);
   }
 }

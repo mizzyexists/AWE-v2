@@ -25,6 +25,7 @@ if(isset($postdata) && !empty($postdata))
         'tokenValidity' => $tokenValidity,
         'tokenPayload' => $payloadContent,
       ];
+      header('Content-type: application/json');
       echo json_encode($response);
     }
     else{
@@ -33,6 +34,7 @@ if(isset($postdata) && !empty($postdata))
         'message' => 'Could not authenticate. Please login again.',
         'error' => 'BAD TOKEN'
       ];
+      header('Content-type: application/json');
       echo json_encode($response);
     }
   }
@@ -43,6 +45,7 @@ else{
     'message' => 'No token was given to authenticate',
     'error' => 'NO TOKEN'
   ];
+  header('Content-type: application/json');
   echo json_encode($response);
 }
 

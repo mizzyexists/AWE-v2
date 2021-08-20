@@ -27,6 +27,7 @@ if(isset($postdata) && !empty($postdata))
             'code' => 1,
             'role' => $db_role
           ];
+          header('Content-type: application/json');
           echo json_encode($response);
         }
       }
@@ -36,6 +37,7 @@ if(isset($postdata) && !empty($postdata))
           'message' => 'Could not authenticate. Please login again.',
           'error' => 'BAD TOKEN'
         ];
+        header('Content-type: application/json');
         echo json_encode($response);
       }
     }
@@ -45,6 +47,7 @@ if(isset($postdata) && !empty($postdata))
         'message' => 'No token was given to authenticate',
         'error' => 'NO TOKEN'
       ];
+      header('Content-type: application/json');
       echo json_encode($response);
     }
   }

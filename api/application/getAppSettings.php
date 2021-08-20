@@ -11,6 +11,7 @@ if($result = mysqli_query($con, $sql)){
     $settings[$i] = $rows[$i];
     $i++;
   }
+  header('Content-type: application/json');
   echo json_encode($settings);
 }
 

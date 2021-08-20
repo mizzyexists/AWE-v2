@@ -18,24 +18,4 @@ export class AppService {
     return this.httpClient.get<any>(`${this.PHP_API_SERVER}/application/getAppSettings.php`);
   }
 
-  updateAppSettings(settingsAuthData:any): Observable<any>{
-    return this.httpClient.put<any>(`${this.PHP_API_SERVER}/application/updateAppSettings.php`, settingsAuthData);
-  }
-
-  getActiveAlerts(): Observable<any>{
-    return this.httpClient.get<any>(`${this.PHP_API_SERVER}/application/getActiveAlerts.php`);
-  }
-
-  addAlert(alertAuthData:any): Observable<any>{
-    return this.httpClient.post<any>(`${this.PHP_API_SERVER}/application/addAlert.php`, alertAuthData);
-  }
-
-  editAlert(alertAuthData:any): Observable<any>{
-    return this.httpClient.put<any>(`${this.PHP_API_SERVER}/application/editAlert.php`, alertAuthData);
-  }
-
-  removeAlert(alertAuthData:any): Observable<any>{
-    return this.httpClient.delete<any>(`${this.PHP_API_SERVER}/application/removeAlert.php`, alertAuthData);
-  }
-
 }

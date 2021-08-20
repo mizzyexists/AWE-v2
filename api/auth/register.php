@@ -15,6 +15,7 @@ if(isset($postdata) && !empty($postdata))
     $hash = password_hash($password, PASSWORD_DEFAULT);
   }
   else{
+    header('Content-type: application/json');
     echo json_encode('Passwords do not match');
   }
 
@@ -29,6 +30,7 @@ if(isset($postdata) && !empty($postdata))
         'message' => 'User Already Exists',
         'error' => 'REGISTER ERROR 1'
       ];
+      header('Content-type: application/json');
       echo json_encode($response);
     }
     elseif($count == 0 || !$count){
@@ -38,6 +40,7 @@ if(isset($postdata) && !empty($postdata))
           'code' => 1,
           'message' => 'Success'
         ];
+        header('Content-type: application/json');
         echo json_encode($response);
       }
       else
@@ -51,6 +54,7 @@ if(isset($postdata) && !empty($postdata))
         'message' => 'Unknown Error',
         'error' => 'UNKNOWN ERROR 1'
       ];
+      header('Content-type: application/json');
       echo json_encode($response);
     }
 }

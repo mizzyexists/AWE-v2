@@ -56,6 +56,7 @@ if(isset($postdata) && !empty($postdata))
           'facebook' => $db_facebook,
           'youtube' => $db_youtube
         ];
+        header('Content-type: application/json');
         echo json_encode($response);
       }
     }
@@ -65,6 +66,7 @@ if(isset($postdata) && !empty($postdata))
         'message' => 'Could not authenticate. Please login again.',
         'error' => 'BAD TOKEN'
       ];
+      header('Content-type: application/json');
       echo json_encode($response);
     }
   }
@@ -75,6 +77,7 @@ else{
     'message' => 'No token was given to authenticate',
     'error' => 'NO TOKEN'
   ];
+  header('Content-type: application/json');
   echo json_encode($response);
 }
 
