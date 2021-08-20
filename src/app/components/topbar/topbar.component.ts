@@ -116,6 +116,7 @@ export class TopbarComponent implements OnInit {
   // Logout user and delete authentication token data
   logout() {
     this.isLoggedIn = false;
+    this.userRole = '';
     window.localStorage.removeItem('jwt');
     window.localStorage.removeItem('loggedUsername');
     this.toastService.warning('You have been logged out');
