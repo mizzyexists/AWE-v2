@@ -43,7 +43,7 @@ export class AdminService {
   }
 
   adminRemoveAlert(alertAuthData:any): Observable<any>{
-    return this.httpClient.delete<any>(`${this.PHP_API_SERVER}/application/removeAlert.php`, alertAuthData);
+    return this.httpClient.put<any>(`${this.PHP_API_SERVER}/application/deleteAlert.php`, alertAuthData);
   }
 
   adminUpdateAppSettings(settingsAuthData:any): Observable<any>{

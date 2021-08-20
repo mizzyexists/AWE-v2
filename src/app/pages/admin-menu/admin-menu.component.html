@@ -3,10 +3,10 @@
     <div class="col-lg-6 mb-4">
       <div class="card">
         <div class="card-body">
-          <h3>App Operations</h3>
+          <h3>Alert Operations</h3>
           <hr/>
-          <a (click)="open(createAlert)" class="btn btn--primary mx-2">Create Global Alert</a>
-          <a (click)="open(activeAlerts)" class="btn btn-primary mx-2">Active Alerts</a>
+          <a (click)="open(createAlert)" class="btn btn--primary mx-2 my-1">Create Global Alert</a>
+          <a (click)="open(activeAlerts); getActiveAlerts();" class="btn btn-primary mx-2 my-1">Active Alerts</a>
         </div>
       </div>
     </div>
@@ -29,7 +29,7 @@
     <div class="col-lg-6 mb-4">
       <div class="card">
         <div class="card-body">
-          <h3>Other Operations</h3>
+          <h3>Other App Settings</h3>
           <hr/>
         </div>
       </div>
@@ -101,7 +101,93 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body mx-1">
+  <div *ngIf="fetchedActiveAlerts[0]" class="modal-body mx-1">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">AID</th>
+        <th scope="col">Message</th>
+        <th scope="col">Persist</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let alert of fetchedActiveAlerts">
+        <th>{{ alert.alert_id }}</th>
+        <td class="w-50">{{ alert.message }}</td>
+        <td>{{ alert.persist }}</td>
+        <td class="text-center"><a (click)="open(editAlert); updateAlertForm(alert.alert_id, alert.type, alert.message, alert.theme, alert.persist, alert.persist_id, alert.persist_count, alert.autoclose);" class="btn btn--primary mx-1 my-1">Edit</a><a (click)="deleteAlert(alert.alert_id)" class="btn btn-danger mx-1 my-1">Delete</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="!fetchedActiveAlerts[0] && alertsLoading == false" class="modal-body mx-1">
+    <div class="d-flex justify-content-center py-5">
+      <p>No Active Alerts</p>
+    </div>
+  </div>
+  <div *ngIf="!fetchedActiveAlerts[0] && alertsLoading == true" class="modal-body mx-1">
+    <div class="d-flex justify-content-center py-5">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+  </div>
+</ng-template>
 
+<ng-template #editAlert let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Edit Alert</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body mx-1">
+    <form [formGroup]="editAlertForm" (ngSubmit)="editAlertSubmit()" class="mt-3">
+    <div class="form-group">
+      <label for="alertMessage">Alert Message:</label>
+      <input type="text" class="form-control" formControlName="alertMessage" id="alertMessage" autocomplete="off">
+    </div>
+    <div class="form-group">
+      <label for="alertType">Alert Type:</label>
+      <select class="form-control" formControlName="alertType" id="alertType">
+        <option value="show">Show</option>
+        <option value="info">ℹ️ Info</option>
+        <option value="success">✅ Success</option>
+        <option value="warning">⚠️ Warning</option>
+        <option value="error">❌ Error</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="alertTheme">Alert Theme:</label>
+      <select class="form-control" formControlName="alertTheme" id="alertTheme">
+        <option value="toast">Light</option>
+        <option value="snackbar">Dark</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="alertAutoclose">Auto-Close: {{this.editAlertForm.controls.alertAutoclose.value}}</label>
+      <br/>
+      <input type="checkbox" formControlName="alertAutoclose" id="alertAutoclose">
+    </div>
+    <div class="form-group">
+      <label for="alertPersist">Persist: {{this.editAlertForm.controls.alertPersist.value}}</label>
+      <br/>
+      <input type="checkbox" formControlName="alertPersist" id="alertPersist">
+    </div>
+    <div *ngIf="this.editAlertForm.controls.alertPersist.value == true" class="persistOptions">
+      <div class="form-group">
+        <label for="persistID">Persist ID</label>
+        <br/>
+        <input type="text" class="form-control" formControlName="persistID" id="persistID">
+      </div>
+      <div class="form-group">
+        <label for="persistCount">Persist Count</label>
+        <br/>
+        <input type="number" class="form-control" formControlName="persistCount" id="persistCount">
+      </div>
+    </div>
+    <button (click)="modal.close()"  class="btn btn--primary">Save Changes</button>
+  </form>
   </div>
 </ng-template>

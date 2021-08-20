@@ -8,7 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ChangelogComponent implements OnInit {
 
-  versionNumber: any = "2.3.0";
+  versionNumber: any = "2.3.1";
 
   constructor(
     private modalService: NgbModal,

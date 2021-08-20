@@ -2,6 +2,14 @@
 
 ## Version 2 - Alpha Stage
 
+### 2.3.1
+- Finished Global Alert System
+  - Admins can now:
+    - Create global alerts
+    - Edit global alerts
+    - Delete global alerts
+    - View all active alerts
+
 ### 2.3.0
 - Created Revamped Notification API
   - Retrieves notifications

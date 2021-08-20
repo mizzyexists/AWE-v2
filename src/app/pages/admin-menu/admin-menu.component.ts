@@ -15,6 +15,9 @@ export class AdminMenuComponent implements OnInit {
   alertRequest: any;
   authRequest: any = [];
   authAlertRequest: any;
+  fetchedActiveAlerts: any = [];
+  editAlertForm!: FormGroup;
+  alertsLoading: any;
 
   constructor(
     private modalService: NgbModal,
@@ -48,6 +51,7 @@ export class AdminMenuComponent implements OnInit {
       persistCount: [0, Validators.required]
     });
   }
+
   // Get form data and submit to generate global application alert
   createAlertSubmit(){
     this.alertRequest = {
@@ -65,6 +69,92 @@ export class AdminMenuComponent implements OnInit {
         if(res.code == 1){
           this.toastService.success(res.message);
           this.prepareAlertForm();
+        }
+        else{
+          this.toastService.error(res.message);
+        }
+      });
+    }else{
+      this.toastService.error('No alert message entered.');
+    }
+  }
+
+  getActiveAlerts(){
+    this.alertsLoading = true;
+    this.adminApi.adminGetActiveAlerts().subscribe(res => {
+      this.fetchedActiveAlerts = res;
+      if(this.fetchedActiveAlerts == null){
+        this.fetchedActiveAlerts = [];
+        this.alertsLoading = false;
+      }
+    })
+  }
+
+  // Edit selected Alert
+  updateAlertForm(alert_id: any, type: any, message: any, theme: any, persist: any, persist_id: any, persist_count: any, autoclose: any){
+    if(autoclose == 'true'){
+      autoclose = true;
+    }else{
+      autoclose = false;
+    }
+    if(persist == 'true'){
+      persist = true;
+    }else{
+      persist = false;
+    }
+    this.editAlertForm = this.formBuilder.group({
+      alertID: [alert_id, Validators.required],
+      alertMessage: [message, Validators.required],
+      alertType: [type, Validators.required],
+      alertTheme: [theme, Validators.required],
+      alertAutoclose: [autoclose, Validators.required],
+      alertPersist: [persist, Validators.required],
+      persistID: [persist_id, Validators.required],
+      persistCount: [persist_count, Validators.required]
+    });
+  }
+
+  editAlertSubmit(){
+    this.alertRequest = {
+      alertID: this.editAlertForm.controls.alertID.value,
+      message: this.editAlertForm.controls.alertMessage.value,
+      type: this.editAlertForm.controls.alertType.value,
+      theme: this.editAlertForm.controls.alertTheme.value,
+      autoclose: this.editAlertForm.controls.alertAutoclose.value,
+      persist: this.editAlertForm.controls.alertPersist.value,
+      persistID: this.editAlertForm.controls.persistID.value,
+      persistCount: this.editAlertForm.controls.persistCount.value
+    };
+    if(this.alertRequest.message != ''){
+      this.authAlertRequest = [this.authRequest, this.alertRequest];
+      this.adminApi.adminEditAlert(this.authAlertRequest).subscribe(res => {
+        if(res.code == 1){
+          this.toastService.success(res.message);
+          this.editAlertForm.reset();
+          this.getActiveAlerts();
+        }
+        else{
+          this.toastService.error(res.message);
+        }
+      });
+    }else{
+      this.toastService.error('No alert message entered.');
+    }
+  }
+
+  deleteAlert(alert_id: any){
+    this.alertRequest = {
+      alertID: alert_id
+    };
+    if(this.alertRequest.alertID != ''){
+      this.authAlertRequest = [this.authRequest, this.alertRequest];
+      this.adminApi.adminRemoveAlert(this.authAlertRequest).subscribe(res => {
+        if(res.code == 1){
+          this.toastService.success(res.message);
+          this.getActiveAlerts();
+          if(this.fetchedActiveAlerts[0]){
+            this.fetchedActiveAlerts = [];
+          }
         }
         else{
           this.toastService.error(res.message);
