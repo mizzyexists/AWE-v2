@@ -55,6 +55,19 @@ export class NotibarComponent implements OnInit {
     }
   }
 
+  // Delete all notifications
+  deleteNotis(){
+    this.profileApi.deleteNotis(this.authRequest).subscribe(res => {
+      if(res.code == 1){
+        this.toastService.success(res.message);
+        this.notifications = null;
+      }
+      else{
+        this.toastService.error(res.message);
+      }
+    });
+  }
+
   // Navigate to page with passed slug
   navigateNoti(noti_id:any, slug: any){
     if(slug != ''){

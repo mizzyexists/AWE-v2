@@ -42,7 +42,7 @@ if(isset($postdata) && !empty($postdata))
           'code' => 1,
           'message' => 'Successfully Logged In',
           'jwt' => $token,
-          'username' => $username
+          'username' => $dbusername
         ];
         header('Content-type: application/json');
         echo json_encode($response);

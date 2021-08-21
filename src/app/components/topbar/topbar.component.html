@@ -11,7 +11,7 @@
       <button ngbDropdownItem routerLink="profile">View Profile</button>
       <button ngbDropdownItem routerLink="edit-profile">Edit Profile</button>
       <button ngbDropdownItem>Settings</button>
-      <button *ngIf="userRole=='admin' || userRole=='super-admin'" routerLink="admin-menu" ngbDropdownItem>Admin Menu</button>
+      <button class="admin-red" *ngIf="userRole=='admin' || userRole=='super-admin'" routerLink="admin-menu" ngbDropdownItem>Admin Menu</button>
       <button ngbDropdownItem (click)="logout()">Log Out</button>
     </div>
     </div>

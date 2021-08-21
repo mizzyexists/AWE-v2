@@ -15,6 +15,7 @@
         <div class="card-body">
           <h3>User Operations</h3>
           <hr/>
+          <a (click)="open(newNotification)" class="btn btn--primary mx-2 my-1">Create User Notification</a>
         </div>
       </div>
     </div>
@@ -89,7 +90,7 @@
         <input type="number" class="form-control" formControlName="persistCount" id="persistCount">
       </div>
     </div>
-    <button (click)="modal.close()"  class="btn btn--primary">Create Alert</button>
+    <button (click)="modal.close()" class="btn btn--primary">Create Alert</button>
   </form>
   </div>
 </ng-template>
@@ -189,5 +190,35 @@
     </div>
     <button (click)="modal.close()"  class="btn btn--primary">Save Changes</button>
   </form>
+  </div>
+</ng-template>
+
+<ng-template #newNotification let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Create User Notifcation</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body mx-1">
+    <form [formGroup]="createNotiForm" (ngSubmit)="createNotiSubmit()" class="mt-3">
+      <div class="form-group">
+        <label for="notiTarget">Target Username:</label>
+        <input type="text" class="form-control" formControlName="notiTarget" id="notiTarget" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label for="notiTitle">Notification Title:</label>
+        <input type="text" class="form-control" formControlName="notiTitle" id="notiTitle" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label for="notiBody">Notification Body:</label>
+        <textarea class="form-control" formControlName="notiBody" id="notiBody" autocomplete="off"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="notiSlug">Notification Link:</label>
+        <input type="text" class="form-control" formControlName="notiSlug" id="notiSlug" autocomplete="off">
+      </div>
+      <button (click)="modal.close()" class="btn btn--primary">Create Alert</button>
+    </form>
   </div>
 </ng-template>

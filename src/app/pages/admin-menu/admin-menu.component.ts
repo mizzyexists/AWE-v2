@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AdminService } from 'src/app/services/admin.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 
 @Component({
@@ -12,20 +13,25 @@ import { AdminService } from 'src/app/services/admin.service';
 })
 export class AdminMenuComponent implements OnInit {
   createAlertForm!: FormGroup;
+  editAlertForm!: FormGroup;
+  createNotiForm!: FormGroup;
   alertRequest: any;
+  notificationRequest: any;
+  authNotificationRequest: any;
   authRequest: any = [];
   authAlertRequest: any;
   fetchedActiveAlerts: any = [];
-  editAlertForm!: FormGroup;
   alertsLoading: any;
 
   constructor(
     private modalService: NgbModal,
     private toastService: HotToastService,
     private formBuilder:FormBuilder,
-    private adminApi: AdminService
+    private adminApi: AdminService,
+    private profileApi: ProfileService
   ) {
     this.prepareAlertForm();
+    this.prepareNotiForm()
   }
 
   ngOnInit(): void {
@@ -52,6 +58,16 @@ export class AdminMenuComponent implements OnInit {
     });
   }
 
+  // "Create Notifcation" Form Builder
+  prepareNotiForm(){
+    this.createNotiForm = this.formBuilder.group({
+      notiTarget: ['', Validators.required],
+      notiTitle: ['', Validators.required],
+      notiBody: ['', Validators.required],
+      notiSlug: ['/', Validators.required],
+    });
+  }
+
   // Get form data and submit to generate global application alert
   createAlertSubmit(){
     this.alertRequest = {
@@ -69,6 +85,8 @@ export class AdminMenuComponent implements OnInit {
         if(res.code == 1){
           this.toastService.success(res.message);
           this.prepareAlertForm();
+          var date = new Date().toLocaleString();
+          this.profileApi.generateNotification(this.authRequest[0], this.authRequest[1], "mizzy", '⚠️ Alert Created', "There was a new global alert created by "+this.authRequest[1]+" at "+date, "/admin-menu").subscribe();
         }
         else{
           this.toastService.error(res.message);
@@ -114,6 +132,7 @@ export class AdminMenuComponent implements OnInit {
     });
   }
 
+  // Get form data and submit to edit selected global application alert
   editAlertSubmit(){
     this.alertRequest = {
       alertID: this.editAlertForm.controls.alertID.value,
@@ -132,6 +151,8 @@ export class AdminMenuComponent implements OnInit {
           this.toastService.success(res.message);
           this.editAlertForm.reset();
           this.getActiveAlerts();
+          var date = new Date().toLocaleString();
+          this.profileApi.generateNotification(this.authRequest[0], this.authRequest[1], "mizzy", 'ℹ️ Alert Edited', "Alert ID: "+this.alertRequest.alertID+" was edited by "+this.authRequest[1]+" on "+date, "/admin-menu").subscribe();
         }
         else{
           this.toastService.error(res.message);
@@ -155,6 +176,8 @@ export class AdminMenuComponent implements OnInit {
           if(this.fetchedActiveAlerts[0]){
             this.fetchedActiveAlerts = [];
           }
+          var date = new Date().toLocaleString();
+          this.profileApi.generateNotification(this.authRequest[0], this.authRequest[1], "mizzy", '❌ Alert Deleted', "Alert ID: "+this.alertRequest.alertID+" was deleted by "+this.authRequest[1]+" on "+date, "/admin-menu").subscribe();
         }
         else{
           this.toastService.error(res.message);
@@ -164,4 +187,28 @@ export class AdminMenuComponent implements OnInit {
       this.toastService.error('No alert message entered.');
     }
   }
+
+  createNotiSubmit(){
+    this.notificationRequest = {
+      target: this.createNotiForm.controls.notiTarget.value,
+      title: this.createNotiForm.controls.notiTitle.value,
+      message: this.createNotiForm.controls.notiBody.value,
+      slug: this.createNotiForm.controls.notiSlug.value
+    };
+    if(this.notificationRequest.message != ''){
+      this.authNotificationRequest = [this.authRequest, this.notificationRequest];
+      this.profileApi.createNoti(this.authNotificationRequest).subscribe(res => {
+        if(res.code == 1){
+          this.toastService.success(res.message);
+          this.prepareNotiForm();
+        }
+        else{
+          this.toastService.error(res.message);
+        }
+      });
+    }else{
+      this.toastService.error('No alert message entered.');
+    }
+  }
+
 }
