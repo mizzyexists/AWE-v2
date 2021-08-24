@@ -4,7 +4,7 @@ $dbaddy = "srv-captain--general-db"; // MySQL Database Address
 $dbuser = "mizzy"; // MySQL Database User
 $dbpass = "Bringit55!@"; // MySQL Database User Password
 $dbname = "awev2db"; // MySQL Database
-
+$server_url = "https://awev2backend.appserver.mizzyexists.com";
 // CONSOLE LOG SETTINGS
 $console_info_alerts = true;
 $console_log_alerts = true;

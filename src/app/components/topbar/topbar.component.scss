@@ -17,9 +17,6 @@
       font-size: 28px;
     }
   }
-  .admin-red{
-    color: darkred;
-  }
   a{
     cursor: pointer;
     .user-img{
@@ -79,8 +76,14 @@
     }
     .dropdown-menu{
       margin-top: 37px;
-      .dropdown-item:active{
-        background-color: #5e1dc1;
+      padding-top: 0px;
+      padding-bottom: 0px;
+      .dropdown-item{
+        padding: 10px 5px;
+        text-align: center;
+        &:active{
+          background-color: #5e1dc1;
+        }
       }
     }
     .dropdown-toggle::after {

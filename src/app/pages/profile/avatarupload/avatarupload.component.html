@@ -1,0 +1,9 @@
+<form [formGroup]="uploadAvatarForm" (ngSubmit)="submitAvatar()" class="px-5">
+  <div class="form-group">
+    <label class="uploadButton" for="avatar">
+    <input type="file" (change)="onFileSelect($event)" placeholder="Upload Avatar" name="avatar" class="form-control" id="avatar">
+    <fa-icon [icon]="faUpload"></fa-icon> Upload New Avatar
+    </label><p class="d-inline ml-2">{{file.name}}</p>
+  </div>
+  <button class="btn btn--primary">Upload Image</button><a href="/profile/" class="btn btn-secondary ml-2">Cancel</a>
+</form>

@@ -2,6 +2,14 @@
 
 ## Version 2 - Alpha Stage
 
+### 2.3.3
+- User Avatar Uploading
+  - Uploaded avatars are saved to 'uploads'
+  - URL path is saved to DB for AWE to pull
+- Styled checkboxes as custom switches
+- Added 'server_url' variable to config
+- Several security fixes
+
 ### 2.3.2
 - Notification Generation
   - Created global function that can be used to generate notifications for any user

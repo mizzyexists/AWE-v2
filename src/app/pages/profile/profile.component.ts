@@ -52,7 +52,6 @@ export class ProfileComponent implements OnInit {
       this.toastService.error('Unknown Error: ' + err);
     })
     }
-    console.log(this.fetchedUserData);
   }
 
   // Modal Service

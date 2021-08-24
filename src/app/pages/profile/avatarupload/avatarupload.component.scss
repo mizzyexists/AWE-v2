@@ -1,0 +1,9 @@
+input[type="file"] {
+    display: none;
+}
+.uploadButton {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 20px 20px;
+    cursor: pointer;
+}

@@ -70,13 +70,13 @@
     </div>
     <div class="form-group">
       <label for="alertAutoclose">Auto-Close: {{this.createAlertForm.controls.alertAutoclose.value}}</label>
-      <br/>
       <input type="checkbox" formControlName="alertAutoclose" id="alertAutoclose">
+      <label class="switch-label" for="alertAutoclose">Auto-Close: {{this.createAlertForm.controls.alertAutoclose.value}}</label>
     </div>
     <div class="form-group">
       <label for="alertPersist">Persist: {{this.createAlertForm.controls.alertPersist.value}}</label>
-      <br/>
       <input type="checkbox" formControlName="alertPersist" id="alertPersist">
+      <label class="switch-label" for="alertPersist">Persist: {{this.createAlertForm.controls.alertPersist.value}}</label>
     </div>
     <div *ngIf="this.createAlertForm.controls.alertPersist.value == true" class="persistOptions">
       <div class="form-group">

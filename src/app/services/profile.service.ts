@@ -24,6 +24,14 @@ export class ProfileService {
     return this.httpClient.post<any>(`${this.PHP_API_SERVER}/profile/getLoggedProfileImage.php`, profileRequestAuth);
   }
 
+  uploadAvatar(avatar: any): Observable<any>{
+    return this.httpClient.post<any>(`${this.PHP_API_SERVER}/profile/uploadAvatar.php`, avatar);
+  }
+
+  setAvatar(authAvatarData: any): Observable<any>{
+    return this.httpClient.post<any>(`${this.PHP_API_SERVER}/profile/setUserAvatar.php`, authAvatarData);
+  }
+
   editMyProfile(profileData: any): Observable<any>{
     return this.httpClient.put<any>(`${this.PHP_API_SERVER}/profile/editLoggedProfile.php`, profileData);
   }

@@ -23,6 +23,7 @@ import { AlertsComponent } from './components/alerts/alerts.component';
 import { EditprofileComponent } from './pages/profile/editprofile/editprofile.component';
 import { AdminMenuComponent } from './pages/admin-menu/admin-menu.component';
 import { NotibarComponent } from './components/notibar/notibar.component';
+import { AvataruploadComponent } from './pages/profile/avatarupload/avatarupload.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { NotibarComponent } from './components/notibar/notibar.component';
     AlertsComponent,
     EditprofileComponent,
     AdminMenuComponent,
-    NotibarComponent
+    NotibarComponent,
+    AvataruploadComponent,
   ],
   imports: [
     BrowserModule,

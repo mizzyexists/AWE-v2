@@ -4,7 +4,8 @@
       <div class="card">
         <div *ngIf="fetchedUserData.username" class="card-body">
           <h5 class="card-title">
-            <img src="{{fetchedUserData.image}}"> {{fetchedUserData.username | titlecase}}
+            <img class="avatar" src="{{fetchedUserData.image}}">
+            <p class="text-center">{{fetchedUserData.username | titlecase}}</p>
           </h5>
           <hr />
           <form [formGroup]="editUserForm" (ngSubmit)="onUpdate()" class="px-5">
