@@ -5,9 +5,9 @@
       <div class="notiItem" *ngFor="let noti of notifications" ngbDropdownItem (click)="navigateNoti(noti.noti_id,noti.slug)">
         <span *ngIf="noti.readbyuser=='false'" class="unread-text">NEW</span>
         <p *ngIf="noti.readbyuser=='false'" class="unread"><b>{{noti.title}}</b></p>
-        <p *ngIf="noti.readbyuser=='false'" class="unread">{{noti.body}}</p>
+        <p *ngIf="noti.readbyuser=='false'" class="unread" [innerHTML]="noti.body"></p>
         <p *ngIf="noti.readbyuser=='true'"><b>{{noti.title}}</b></p>
-        <p *ngIf="noti.readbyuser=='true'">{{noti.body}}</p>
+        <p *ngIf="noti.readbyuser=='true'" [innerHTML]="noti.body"></p>
       </div>
       <div *ngIf="!notifications" class="notiItem" ngbDropdownItem>
         <p>No Notifications</p>

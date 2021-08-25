@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AppService } from '../../services/app.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,8 @@ export class RegisterComponent implements OnInit {
     private formBuilder:FormBuilder,
     private authApi: AuthService,
     private toastService: HotToastService,
-    private appApi: AppService
+    private appApi: AppService,
+    private profileApi: ProfileService
   )
   {
     this.registerForm = this.formBuilder.group({
@@ -68,6 +70,15 @@ export class RegisterComponent implements OnInit {
               if(res.code == 1 && res.jwt && res.username) {
                 window.localStorage.setItem('jwt', res.jwt);
                 window.localStorage.setItem('loggedUsername', res.username);
+                // Generate 'Welcome Notification'
+                this.profileApi.generateNotification(
+                  window.localStorage.getItem('jwt'),
+                  window.localStorage.getItem('loggedUsername'),
+                  window.localStorage.getItem('loggedUsername'),
+                  "Welcome to AWE!",
+                  "Hi "+window.localStorage.getItem('loggedUsername')+'!<br/>Welcome to Angular Web Engine. There is still much to be done in the construction of this platform, but we encourage you to look around and see what is available so far!',
+                  "/"
+                );
                 this.toastService.loading(res.message);
                 setTimeout(() => window.location.href = './', 1000);
               }

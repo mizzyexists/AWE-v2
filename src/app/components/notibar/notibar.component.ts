@@ -6,6 +6,7 @@ import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { ConnectableObservable, interval, of, Subject } from 'rxjs';
 import { multicast, switchMap } from 'rxjs/operators';
 import { AppService } from 'src/app/services/app.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-notibar',
@@ -21,10 +22,12 @@ export class NotibarComponent implements OnInit {
   isRead: any;
   notiIndex: any;
   notificationPolling: any;
+  pageTitle: any;
   constructor(
     private profileApi: ProfileService,
     private toastService: HotToastService,
     private router: Router,
+    private title: Title,
     private appApi: AppService
   ) {
     this.authRequest[0] = window.localStorage.getItem('jwt');
@@ -34,6 +37,12 @@ export class NotibarComponent implements OnInit {
       if(this.notiRes.code == 1){
         this.notifications = this.notiRes.notifications;
         this.notiCount = this.notiRes.unread;
+        this.pageTitle = this.title.getTitle();
+        if(this.notiCount > 0){
+        this.title.setTitle('('+this.notiCount+') ' + this.pageTitle);
+        }else{
+        this.title.setTitle(this.pageTitle);
+        }
         if(this.notiCount > 99){
           this.notiCount = 99;
         }
@@ -55,6 +64,11 @@ export class NotibarComponent implements OnInit {
       if(this.notiRes.code == 1){
         this.notifications = this.notiRes.notifications;
         this.notiCount = this.notiRes.unread;
+        if(this.notiCount > 0){
+        this.title.setTitle('('+this.notiCount+') ' + this.pageTitle);
+        }else{
+        this.title.setTitle(this.pageTitle);
+        }
         if(this.notiCount > 99){
           this.notiCount = 99;
         }

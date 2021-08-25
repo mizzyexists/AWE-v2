@@ -47,15 +47,6 @@ export class AdminMenuComponent implements OnInit {
     // Get Auth Data
     this.authRequest[0] = window.localStorage.getItem('jwt');
     this.authRequest[1] = window.localStorage.getItem('loggedUsername');
-    // Get user permissions role
-    this.authApi.getMyRole(this.authRequest).subscribe(res => {
-      if(res.role != 'admin' && res.role != 'super-admin'){
-        console.log(res);
-        this.router.navigate(['/']);
-      }
-    }, err => {
-      this.toastService.error("Unknown Error: "+ err);
-    });
   }
 
   ngOnInit(): void {
