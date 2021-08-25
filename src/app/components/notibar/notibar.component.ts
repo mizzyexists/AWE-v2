@@ -3,6 +3,8 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Router } from '@angular/router';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { ConnectableObservable, interval, of, Subject } from 'rxjs';
+import { multicast, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-notibar',
@@ -21,9 +23,7 @@ export class NotibarComponent implements OnInit {
     private profileApi: ProfileService,
     private toastService: HotToastService,
     private router: Router,
-  ) { }
-
-  ngOnInit(): void {
+  ) {
     this.authRequest[0] = window.localStorage.getItem('jwt');
     this.authRequest[1] = window.localStorage.getItem('loggedUsername');
     this.profileApi.getMyNotis(this.authRequest).subscribe(res => {
@@ -40,7 +40,35 @@ export class NotibarComponent implements OnInit {
       }
     }, err => {
       this.toastService.error("Unknown Error: "+ err);
-    })
+    });
+  }
+
+  ngOnInit(): void {
+  // SHORT POLLING NOTIFICATIONS WITHOUT PAGE REFRESH
+  // ----------------------------------------------------------------
+    const notiRefresh$ = interval(10000).pipe(switchMap(_x => {
+    this.profileApi.getMyNotis(this.authRequest).subscribe(res => {
+      this.notiRes = res;
+      if(this.notiRes.code == 1){
+        this.notifications = this.notiRes.notifications;
+        this.notiCount = this.notiRes.unread;
+        if(this.notiCount > 99){
+          this.notiCount = 99;
+        }
+      }
+      else{
+        this.toastService.error(this.notiRes.message);
+      }
+    }, err => {
+      this.toastService.error("Unknown Error: "+ err);
+      })
+      return of();
+    }),
+    multicast(() => new Subject())
+  ) as ConnectableObservable<any>;
+    notiRefresh$.subscribe(value => console.log(value));
+    notiRefresh$.connect();
+  // ----------------------------------------------------------------
   }
 
   // Clear all notifications

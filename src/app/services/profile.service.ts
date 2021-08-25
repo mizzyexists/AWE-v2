@@ -70,7 +70,7 @@ export class ProfileService {
       this.authNotificationRequest = [this.authRequest, this.notificationRequest];
       this.createNoti(this.authNotificationRequest).subscribe(res => {
         if(res.code == 1){
-          subject.next(console.log(res.message));
+          subject.next();
         }
         else{
           subject.next(console.log(res.message));
