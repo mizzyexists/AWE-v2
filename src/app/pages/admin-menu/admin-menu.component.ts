@@ -44,9 +44,13 @@ export class AdminMenuComponent implements OnInit {
     this.prepareNotiForm();
     this.prepareAlertForm();
     this.getAppSettingsForm();
+    // Get Auth Data
+    this.authRequest[0] = window.localStorage.getItem('jwt');
+    this.authRequest[1] = window.localStorage.getItem('loggedUsername');
     // Get user permissions role
     this.authApi.getMyRole(this.authRequest).subscribe(res => {
       if(res.role != 'admin' && res.role != 'super-admin'){
+        console.log(res);
         this.router.navigate(['/']);
       }
     }, err => {
@@ -55,9 +59,7 @@ export class AdminMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Get Auth Data
-    this.authRequest[0] = window.localStorage.getItem('jwt');
-    this.authRequest[1] = window.localStorage.getItem('loggedUsername');
+
   }
 
   // Modal service
