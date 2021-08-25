@@ -56,8 +56,8 @@ input[type=checkbox]{
 .switch-label {
   cursor: pointer;
   text-indent: -9999px;
-  width: 40px;
-  height: 20px;
+  width: 50px;
+  height: 25px;
   background: grey;
   transition: all .3s ease;
   display: block;
@@ -70,8 +70,8 @@ input[type=checkbox]{
   position: absolute;
   top: 5px;
   left: 5px;
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   background: #fff;
   border-radius: 90px;
   transition: 0.3s;
@@ -88,5 +88,5 @@ input:checked + .switch-label:after {
 }
 
 .switch-label:active:after {
-	width: 10px;
+	width: 15px;
 }

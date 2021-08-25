@@ -2,6 +2,22 @@
 
 ## Version 2 - Alpha Stage
 
+### 2.3.4
+- Dynamic App Settings
+  - Application settings can now be changed by admins
+    - Maintenance Mode
+    - Allow Registration
+    - Notification Short Polling
+- Notification Short Polling
+  - AWE will pole the notification API for updates
+    - Currently set to check every 10 seconds to ease server load
+    - Can be enabled / disabled by admins
+- Fixed bug where registration was not initiating login
+- Adjusted notification dropdown on mobile devices
+- Fixed some ambiguous error messages
+- Fixed 'edit profile' page user avatar
+- Added loading spinner to 'Register' window while checking if registration is allowed
+
 ### 2.3.3
 - User Avatar Uploading
   - Uploaded avatars are saved to 'uploads'

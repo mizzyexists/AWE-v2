@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AdminService } from 'src/app/services/admin.service';
+import { AppService } from 'src/app/services/app.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProfileService } from 'src/app/services/profile.service';
 
 
@@ -15,23 +18,40 @@ export class AdminMenuComponent implements OnInit {
   createAlertForm!: FormGroup;
   editAlertForm!: FormGroup;
   createNotiForm!: FormGroup;
+  updateAppForm!: FormGroup;
   alertRequest: any;
   notificationRequest: any;
   authNotificationRequest: any;
   authRequest: any = [];
+  authAppRequest: any = [];
   authAlertRequest: any;
   fetchedActiveAlerts: any = [];
   alertsLoading: any;
+  proccessedAppSettings: any = [];
+  fetchedAppSettings: any = [];
+  appSettingsRequest: any = [];
 
   constructor(
     private modalService: NgbModal,
     private toastService: HotToastService,
     private formBuilder:FormBuilder,
     private adminApi: AdminService,
-    private profileApi: ProfileService
+    private profileApi: ProfileService,
+    private appApi: AppService,
+    private router: Router,
+    private authApi: AuthService
   ) {
+    this.prepareNotiForm();
     this.prepareAlertForm();
-    this.prepareNotiForm()
+    this.getAppSettingsForm();
+    // Get user permissions role
+    this.authApi.getMyRole(this.authRequest).subscribe(res => {
+      if(res.role != 'admin' && res.role != 'super-admin'){
+        this.router.navigate(['/']);
+      }
+    }, err => {
+      this.toastService.error("Unknown Error: "+ err);
+    });
   }
 
   ngOnInit(): void {
@@ -64,9 +84,56 @@ export class AdminMenuComponent implements OnInit {
       notiTarget: ['', Validators.required],
       notiTitle: ['', Validators.required],
       notiBody: ['', Validators.required],
-      notiSlug: ['/', Validators.required],
+      notiSlug: ['/', Validators.required]
     });
   }
+
+  // 'App Settings' Form Builder
+  getAppSettingsForm(){
+    this.appApi.getAppSettings().subscribe(res => {
+      this.fetchedAppSettings = res;
+      let i = 0;
+      let proccessedAppSettings:any = [];
+      for(proccessedAppSettings of this.fetchedAppSettings){
+        this.proccessedAppSettings[i] = proccessedAppSettings;
+        if(this.proccessedAppSettings[i]['setting_value'] == 'true' || this.proccessedAppSettings[i]['setting_value'] == true){
+          this.proccessedAppSettings[i]['setting_value'] = true;
+        }else{
+          this.proccessedAppSettings[i]['setting_value'] = false;
+        }
+        i++;
+      }
+      this.updateAppForm = this.formBuilder.group({
+        maintenanceMode: [this.proccessedAppSettings[0]['setting_value'], Validators.required],
+        allowRegistration: [this.proccessedAppSettings[1]['setting_value'], Validators.required],
+        notificationPolling: [this.proccessedAppSettings[2]['setting_value'], Validators.required]
+      });
+    }, err =>{
+      console.log(err);
+    });
+  }
+
+  // Get form data and submit to update application settings
+  updateAppSubmit(){
+    this.appSettingsRequest = {
+      setMaintenanceMode: this.updateAppForm.controls.maintenanceMode.value,
+      setAllowRegistration: this.updateAppForm.controls.allowRegistration.value,
+      setNotificationPolling: this.updateAppForm.controls.notificationPolling.value
+    };
+      this.authAppRequest = [this.authRequest, this.appSettingsRequest];
+      this.appApi.updateAppSettings(this.authAppRequest).subscribe(res => {
+        if(res.code == 1){
+          this.toastService.success(res.message);
+          this.getAppSettingsForm();
+        }else{
+          this.toastService.error(res.message);
+          this.getAppSettingsForm();
+        }
+      },err => {
+        this.toastService.error("An unknown error occured");
+      })
+  }
+
 
   // Get form data and submit to generate global application alert
   createAlertSubmit(){

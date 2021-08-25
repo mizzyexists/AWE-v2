@@ -32,7 +32,6 @@ export class RegisterComponent implements OnInit {
     });
     this.appApi.getAppSettings().subscribe(res => {
       this.openRegistration = res[1]['setting_value'];
-      console.log(this.openRegistration);
     }, err =>{
       console.log(err);
     });
@@ -65,17 +64,23 @@ export class RegisterComponent implements OnInit {
           switch(this.responseData.code){
             case 1: {
             const loginData = {username: this.registerForm.value.username, password: this.registerForm.value.password};
-            this.authApi.login(loginData).subscribe((data: any) => {
-              if(data.code==1 && data.jwt) {
-                window.localStorage.setItem('jwt', data.jwt);
-                this.registerForm.reset();
-                // window.localStorage.removeItem('captchaRes');
-                setTimeout(() => window.location.href = './', 500);
+            this.authApi.login(loginData).subscribe(res => {
+              if(res.code == 1 && res.jwt && res.username) {
+                window.localStorage.setItem('jwt', res.jwt);
+                window.localStorage.setItem('loggedUsername', res.username);
+                this.toastService.loading(res.message);
+                setTimeout(() => window.location.href = './', 1000);
               }
-              else{
-                this.toastService.error('An Error Occured');
+              else {
+                window.localStorage.removeItem('jwt');
+                window.localStorage.removeItem('loggedUsername');
+                this.toastService.error(res.message);
               }
-              })
+            }, err => {
+              window.localStorage.removeItem('jwt');
+              window.localStorage.removeItem('loggedUsername');
+              this.toastService.error('Unknown Error: '+err);
+            })
               break;
             }
             case 998: {

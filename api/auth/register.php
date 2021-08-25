@@ -20,7 +20,7 @@ if(isset($postdata) && !empty($postdata))
   }
 
   $sql1 = "SELECT * FROM users WHERE username = '$username' OR email = '$email'";
-  $sql2 = "INSERT INTO users(uid, username, password, email, role) VALUES (null, '$username', '$hash', '$email', null)";
+  $sql2 = "INSERT INTO users(uid, username, password, email, role, profile_image) VALUES (null, '$username', '$hash', '$email', 'user', 'https://awev2backend.appserver.mizzyexists.com/uploads/noprofile.png')";
 
   $usercheck = mysqli_query($con, $sql1);
   $count = mysqli_num_rows($usercheck); // Check if user or email exists
@@ -35,7 +35,6 @@ if(isset($postdata) && !empty($postdata))
     }
     elseif($count == 0 || !$count){
       if(mysqli_query($con,$sql2)){
-        http_response_code(201);
         $response = [
           'code' => 1,
           'message' => 'Success'
@@ -45,7 +44,13 @@ if(isset($postdata) && !empty($postdata))
       }
       else
       {
-        http_response_code(422);
+        $response = [
+          'code' => 961,
+          'message' => 'Error registering user.',
+          'error' => 'REG ERROR'
+        ];
+        header('Content-type: application/json');
+        echo json_encode($response);
       }
     }
     else{

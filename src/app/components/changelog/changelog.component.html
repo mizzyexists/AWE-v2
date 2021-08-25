@@ -16,6 +16,31 @@
 <ng-template #changelogContent>
   <h2>Version 2 - Alpha Stage</h2>
   <br/>
+  <h3 id="2-3-4">2.3.4</h3>
+  <ul>
+  <li>Dynamic App Settings<ul>
+  <li>Application settings can now be changed by admins<ul>
+  <li>Maintenance Mode</li>
+  <li>Allow Registration</li>
+  <li>Notification Short Polling</li>
+  </ul>
+  </li>
+  </ul>
+  </li>
+  <li>Notification Short Polling<ul>
+  <li>AWE will pole the notification API for updates<ul>
+  <li>Currently set to check every 10 seconds to ease server load</li>
+  <li>Can be enabled / disabled by admins</li>
+  </ul>
+  </li>
+  </ul>
+  </li>
+  <li>Fixed bug where registration was not initiating login</li>
+  <li>Adjusted notification dropdown on mobile devices</li>
+  <li>Fixed some ambiguous error messages</li>
+  <li>Fixed &#39;edit profile&#39; page user avatar</li>
+  <li>Added loading spinner to &#39;Register&#39; window while checking if registration is allowed</li>
+  </ul>
   <h3 id="2-3-3">2.3.3</h3>
   <ul>
   <li>User Avatar Uploading<ul>

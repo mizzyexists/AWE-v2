@@ -18,10 +18,17 @@
           <re-captcha class="text-center d-flex justify-content-center" formControlName="reCaptcha" name="reCaptcha" id="reCaptcha" (resolved)="resolved($event)" siteKey='6LdeStsZAAAAAO_XpcvZ0HlHeD-7iR0t6ZR_HJrD'></re-captcha>
         </div> -->
         <button class="btn btn--primary">Register</button>
-        </form>
-      </div>
-      <div *ngIf="openRegistration!='true' || !openRegistration" class="col text-center py-5">
+    </form>
+  </div>
+      <div *ngIf="openRegistration=='false'" class="col text-center py-5">
         <h1>Sorry!</h1>
         <h2>Registration is currently closed</h2>
+      </div>
+      <div *ngIf="!openRegistration" class="col text-center py-5">
+        <div class="d-flex justify-content-center py-5">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+        </div>
       </div>
 </div>

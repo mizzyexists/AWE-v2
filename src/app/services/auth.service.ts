@@ -62,7 +62,7 @@ export class AuthService {
         // Catch unknown errors
         window.localStorage.removeItem('jwt');
         window.localStorage.removeItem('loggedUsername');
-        this.toastService.error(err.statusText);
+        this.toastService.error('An unknown error occured.');
         this.isLoggedIn = false;
         subject.next(this.isLoggedIn);
       });

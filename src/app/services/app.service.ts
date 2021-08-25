@@ -18,4 +18,8 @@ export class AppService {
     return this.httpClient.get<any>(`${this.PHP_API_SERVER}/application/getAppSettings.php`);
   }
 
+  updateAppSettings(authAppRequest: any): Observable<any>{
+    return this.httpClient.put<any>(`${this.PHP_API_SERVER}/application/updateAppSettings.php`, authAppRequest);
+  }
+
 }

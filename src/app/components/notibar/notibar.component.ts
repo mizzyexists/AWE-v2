@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { ConnectableObservable, interval, of, Subject } from 'rxjs';
 import { multicast, switchMap } from 'rxjs/operators';
+import { AppService } from 'src/app/services/app.service';
 
 @Component({
   selector: 'app-notibar',
@@ -19,10 +20,12 @@ export class NotibarComponent implements OnInit {
   authRequest: any = [];
   isRead: any;
   notiIndex: any;
+  notificationPolling: any;
   constructor(
     private profileApi: ProfileService,
     private toastService: HotToastService,
     private router: Router,
+    private appApi: AppService
   ) {
     this.authRequest[0] = window.localStorage.getItem('jwt');
     this.authRequest[1] = window.localStorage.getItem('loggedUsername');
@@ -65,9 +68,17 @@ export class NotibarComponent implements OnInit {
       return of();
     }),
     multicast(() => new Subject())
-  ) as ConnectableObservable<any>;
-    notiRefresh$.subscribe(value => console.log(value));
-    notiRefresh$.connect();
+    ) as ConnectableObservable<any>;
+
+    this.appApi.getAppSettings().subscribe(res => {
+      this.notificationPolling = res[2]['setting_value'];
+      if(this.notificationPolling == true || this.notificationPolling == 'true'){
+      notiRefresh$.subscribe(value => console.log(value));
+      notiRefresh$.connect();
+      }
+    }, err =>{
+      console.log(err);
+    });
   // ----------------------------------------------------------------
   }
 
