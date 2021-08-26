@@ -37,7 +37,7 @@ export class AdmguardGuard implements CanActivate {
         }else{
           this.toastService.error("You do not have permission to access that page.<br/><br/>Admins have been notified about this attempt.");
           var date = new Date().toLocaleString();
-          this.http.get("https://api.ipify.org/?format=json").subscribe((res:any)=>{
+          this.http.get("https://api.ipify.org:443/?format=json").subscribe((res:any)=>{
             this.clientIPAddress = res.ip;
             this.profileApi.generateNotification(this.authRequest[0], this.authRequest[1], 'mizzy', '⚠️ Admin Access Attempted ⚠️', this.authRequest[1] + ' attempted to access the Admin Menu at ' + date + ', but is not an admin.<br/><br/>IP Address: '+this.clientIPAddress, '/');
             this.router.navigate(['/']);

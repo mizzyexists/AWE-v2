@@ -12,6 +12,19 @@
       <div *ngIf="!notifications" class="notiItem" ngbDropdownItem>
         <p>No Notifications</p>
       </div>
-      <a *ngIf="notiCount == 0 && notifications" (click)="deleteNotis();" class="deleteAllBtn">Delete All Notifications</a>
+      <a *ngIf="notiCount == 0 && notifications" (click)="open(confirmNotiDelete);" class="deleteAllBtn">Delete All Notifications</a>
   </div>
 </div>
+
+<ng-template #confirmNotiDelete let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center mx-1">
+    <p>Are you sure you want to delete all read notifications?</p>
+    <a (click)="deleteNotis(); modal.close();" class="btn btn-danger">Delete All Notifications</a>
+  </div>
+</ng-template>

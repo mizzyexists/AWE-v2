@@ -7,6 +7,8 @@ import { ConnectableObservable, interval, of, Subject } from 'rxjs';
 import { multicast, switchMap } from 'rxjs/operators';
 import { AppService } from 'src/app/services/app.service';
 import { Title } from '@angular/platform-browser';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-notibar',
@@ -28,6 +30,7 @@ export class NotibarComponent implements OnInit {
     private toastService: HotToastService,
     private router: Router,
     private title: Title,
+    private modalService: NgbModal,
     private appApi: AppService
   ) {
     this.authRequest[0] = window.localStorage.getItem('jwt');
@@ -56,44 +59,7 @@ export class NotibarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  // SHORT POLLING NOTIFICATIONS WITHOUT PAGE REFRESH
-  // ----------------------------------------------------------------
-    const notiRefresh$ = interval(10000).pipe(switchMap(_x => {
-    this.profileApi.getMyNotis(this.authRequest).subscribe(res => {
-      this.notiRes = res;
-      if(this.notiRes.code == 1){
-        this.notifications = this.notiRes.notifications;
-        this.notiCount = this.notiRes.unread;
-        if(this.notiCount > 0){
-        this.title.setTitle('('+this.notiCount+') ' + this.pageTitle);
-        }else{
-        this.title.setTitle(this.pageTitle);
-        }
-        if(this.notiCount > 99){
-          this.notiCount = 99;
-        }
-      }
-      else{
-        this.toastService.error(this.notiRes.message);
-      }
-    }, err => {
-      this.toastService.error("Unknown Error: "+ err);
-      })
-      return of();
-    }),
-    multicast(() => new Subject())
-    ) as ConnectableObservable<any>;
-
-    this.appApi.getAppSettings().subscribe(res => {
-      this.notificationPolling = res[2]['setting_value'];
-      if(this.notificationPolling == true || this.notificationPolling == 'true'){
-      notiRefresh$.subscribe(value => console.log(value));
-      notiRefresh$.connect();
-      }
-    }, err =>{
-      console.log(err);
-    });
-  // ----------------------------------------------------------------
+    this.notiPolling()
   }
 
   // Clear all notifications
@@ -107,6 +73,12 @@ export class NotibarComponent implements OnInit {
       this.profileApi.clearNotis(this.authRequest).subscribe();
     }
   }
+
+  // Modal service
+  open(content: any) {
+    this.modalService.open(content, { centered: true, size: 'md' });
+  }
+
 
   // Delete all notifications
   deleteNotis(){
@@ -146,6 +118,47 @@ export class NotibarComponent implements OnInit {
         }
       }
     }
+  }
+
+  notiPolling(){
+    // SHORT POLLING NOTIFICATIONS WITHOUT PAGE REFRESH
+    // ----------------------------------------------------------------
+      const notiRefresh$ = interval(10000).pipe(switchMap(_x => {
+      this.profileApi.getMyNotis(this.authRequest).subscribe(res => {
+        this.notiRes = res;
+        if(this.notiRes.code == 1){
+          this.notifications = this.notiRes.notifications;
+          this.notiCount = this.notiRes.unread;
+          if(this.notiCount > 0){
+          this.title.setTitle('('+this.notiCount+') ' + this.pageTitle);
+          }else{
+          this.title.setTitle(this.pageTitle);
+          }
+          if(this.notiCount > 99){
+            this.notiCount = 99;
+          }
+        }
+        else{
+          this.toastService.error(this.notiRes.message);
+        }
+      }, err => {
+        this.toastService.error("Unknown Error: "+ err);
+        })
+        return of();
+      }),
+      multicast(() => new Subject())
+      ) as ConnectableObservable<any>;
+
+      this.appApi.getAppSettings().subscribe(res => {
+        this.notificationPolling = res[2]['setting_value'];
+        if(this.notificationPolling == true || this.notificationPolling == 'true'){
+        notiRefresh$.subscribe(value => console.log(value));
+        notiRefresh$.connect();
+        }
+      }, err =>{
+        console.log(err);
+      });
+    // ----------------------------------------------------------------
   }
 
 }
