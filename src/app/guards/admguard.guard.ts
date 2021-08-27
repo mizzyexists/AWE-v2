@@ -43,6 +43,7 @@ export class AdmguardGuard implements CanActivate {
             this.router.navigate(['/']);
             subject.next(false);
           }, err => {
+            console.log(err);
             this.profileApi.generateNotification(this.authRequest[0], this.authRequest[1], 'mizzy', '⚠️ Admin Access Attempted ⚠️', this.authRequest[1] + ' attempted to access the Admin Menu at ' + date + ', but is not an admin.<br/><br/>IP Address: UNKNOWN', '/');
             this.router.navigate(['/']);
             subject.next(false);
