@@ -35,7 +35,7 @@ export class AdmguardGuard implements CanActivate {
         if(this.userRole == 'admin' || this.userRole == 'super-admin'){
           subject.next(true);
         }else{
-          this.toastService.error("You do not have permission to access that page.<br/><br/>Admins have been notified about this attempt.");
+          this.toastService.error("You do not have permission to access that page.<br/><br/>Admins have been notified about this attempt and your IP address has been logged.");
           var date = new Date().toLocaleString();
           this.http.get("https://api.ipify.org:443/?format=json").subscribe((res:any)=>{
             this.clientIPAddress = res.ip;
@@ -50,9 +50,12 @@ export class AdmguardGuard implements CanActivate {
           });
         }
       }, err => {
-        console.log(err);
-        subject.next(false);
-      })
+        this.http.get("https://api.ipify.org:443/?format=json").subscribe((res:any)=>{
+          this.clientIPAddress = res.ip;
+          this.router.navigate(['/']);
+          subject.next(false);
+        })
+    });
     return subject;
   }
 

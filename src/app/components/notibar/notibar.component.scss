@@ -29,6 +29,9 @@
     white-space: normal;
     padding: 0px;
     margin-top: 32px !important;
+    transform: translate(-274px, 36px) !important;
+    overflow-y: scroll;
+    max-height: 75vh;
     .dropdown-item{
       white-space: normal;
       margin-bottom: 0px;
@@ -74,6 +77,8 @@
     background: #8124ff;
     padding: 8px;
     color: #fff;
+    position: sticky;
+    top: 0px;
     cursor: pointer;
     &:hover{
       box-shadow: rgba(0, 0, 0, 0.15) inset 0px 5px 15px;
@@ -91,6 +96,8 @@
     color: #b1b1b1;
     cursor: pointer;
     transition: all .2s ease;
+    position: sticky;
+    bottom: 0px;
     &:hover{
       color: #fff;
       box-shadow: rgba(0, 0, 0, 0.15) inset 0px 5px 15px;

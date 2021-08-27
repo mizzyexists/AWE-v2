@@ -10,7 +10,7 @@
         <p *ngIf="noti.readbyuser=='true'" [innerHTML]="noti.body"></p>
       </div>
       <div *ngIf="!notifications" class="notiItem" ngbDropdownItem>
-        <p>No Notifications</p>
+        <p class="text-center">No Notifications</p>
       </div>
       <a *ngIf="notiCount == 0 && notifications" (click)="open(confirmNotiDelete);" class="deleteAllBtn">Delete All Notifications</a>
   </div>
@@ -25,6 +25,7 @@
   </div>
   <div class="modal-body text-center mx-1">
     <p>Are you sure you want to delete all read notifications?</p>
-    <a (click)="deleteNotis(); modal.close();" class="btn btn-danger">Delete All Notifications</a>
+    <a (click)="deleteNotis(); modal.close();" class="btn btn-danger mx-1">Delete All Notifications</a>
+    <a (click)="modal.close();" class="btn btn--primary mx-1">Cancel</a>
   </div>
 </ng-template>
