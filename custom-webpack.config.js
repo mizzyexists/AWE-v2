@@ -16,7 +16,7 @@ module.exports = (config, options) => {
           log: false,
           numbersToExpressions: false,
           renameGlobals: false,
-          renameProperties: true,
+          renameProperties: false,
           rotateStringArray: true,
           selfDefending: false,
           shuffleStringArray: true,
