@@ -43,7 +43,7 @@ export class AuthService {
     if(authRequest[0] && authRequest[1]){
       // If logged in
       this.authorize(authRequest).subscribe(res => {
-        if(res.code == 1 && res.tokenValidity == true){
+        if(res.code == 1 && res.tokenValidity == true && res.tokenPayload.status == 'active'){
           // Extract data from token
           this.jwtData = res.tokenPayload;
           this.jwtUsername = this.jwtData.username;

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HotToastService } from '@ngneat/hot-toast';
 import { ProfileService } from 'src/app/services/profile.service';
 
@@ -12,12 +13,14 @@ import { ProfileService } from 'src/app/services/profile.service';
 export class EditprofileComponent implements OnInit {
   authRequest: any = [];
   fetchedUserData: any = [];
+  deleteConfirm: any;
   editUserForm: FormGroup;
 
   constructor(
     private formBuilder:FormBuilder,
     private profileApi: ProfileService,
-    private toastService: HotToastService
+    private toastService: HotToastService,
+    private modalService: NgbModal
   ) {
     this.editUserForm = this.formBuilder.group({
       uid: [],
@@ -66,4 +69,24 @@ export class EditprofileComponent implements OnInit {
          this.toastService.error('Unknown Error: '+ err);
        })
      }
+
+ // Modal Service
+ open(content: any) {
+   this.modalService.open(content, { centered: true, size: 'lg' });
+ }
+
+ deleteAccount(deleteConfirm: any){
+   if(deleteConfirm == "DELETE"){
+     this.toastService.warning("Account has been deleted");
+   }
+   else{
+     this.toastService.error("Confirmation was entered incorrectly");
+   }
+ }
+
+ deactivateAccount(){
+   this.toastService.warning("Your account has been deactivated");
+ }
+
+
 }

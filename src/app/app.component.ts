@@ -28,12 +28,13 @@ export class AppComponent implements OnInit {
   resizeSubscription$!: Subscription;
   isLoggedIn: any;
   maintenanceMode: any;
+  accountStatus: any;
 
   constructor(
     private authApi: AuthService,
     private toastService: HotToastService,
     private appApi: AppService
-    ) {
+    ){
       // Authenticate logged in user
       this.authRequest[0] = window.localStorage.getItem('jwt');
       this.authRequest[1] = window.localStorage.getItem('loggedUsername');
@@ -43,59 +44,59 @@ export class AppComponent implements OnInit {
         this.toastService.error("AUTH ERROR: "+err);
       });
 
-    // Sidebar Helper
-    if (document.body.offsetWidth <= 720 && this.sidebarCollapsed == false) {
-      this.toggleSidebar()
-    }
-    if(window.localStorage.getItem('minisb') == 'true'){
-      this.sidebarCollapsed = true;
-      this.logoCollapsed = true;
-      this.showFullLink = false;
-      this.sidebarStatus = "sb-mini";
-      this.logoStatus = "invis";
-    }
-    else{
-      this.sidebarStatus = "";
-      this.logoCollapsed = false;
-      this.sidebarCollapsed = false;
-      this.logoStatus = "";
-      this.showFullLink = true;
-    }
-
-    // Maintenance Mode Operations
-    this.appApi.getAppSettings().subscribe(res => {
-      this.maintenanceMode = res[0]['setting_value'];
-      if(this.maintenanceMode=='true'){
-        this.authApi.getMyRole(this.authRequest).subscribe(res => {
-          console.log('ROLE '+ res);
-          // Admin Bypass Check
-          if(res.role!='admin' && res.role!='super-admin'){
-            window.localStorage.removeItem('jwt');
-            window.localStorage.removeItem('loggedUsername');
-            this.toastService.warning('<b>Sorry!</b><br/>AWE is currently undergoing maintenance.<br/><br/>We will be back up shortly.', {
-             style: {
-               width: '100%',
-               textAlign: 'center',
-             },
-             theme: 'snackbar',
-             position: 'top-center',
-             autoClose: false,
-             id: 'auth-api-error-8-13-2021',
-             persist: { enabled: false, count: 1 },
-           });
-         }else{
-           // Admin Bypass Warning
-           this.toastService.warning("<b>Admin Alert</b><br/><br/>AWE is currently in maintenance mode.")
-         }
-        },
-        err => {
-          console.log(err);
-        })
+      // Sidebar Helper
+      if (document.body.offsetWidth <= 720 && this.sidebarCollapsed == false) {
+        this.toggleSidebar()
       }
-    },
-    err =>{
-      console.log(err);
-    });
+      if(window.localStorage.getItem('minisb') == 'true'){
+        this.sidebarCollapsed = true;
+        this.logoCollapsed = true;
+        this.showFullLink = false;
+        this.sidebarStatus = "sb-mini";
+        this.logoStatus = "invis";
+      }
+      else{
+        this.sidebarStatus = "";
+        this.logoCollapsed = false;
+        this.sidebarCollapsed = false;
+        this.logoStatus = "";
+        this.showFullLink = true;
+      }
+
+      // Maintenance Mode Operations
+      this.appApi.getAppSettings().subscribe(res => {
+        this.maintenanceMode = res[0]['setting_value'];
+        if(this.maintenanceMode=='true'){
+          this.authApi.getMyRole(this.authRequest).subscribe(res => {
+            console.log('ROLE '+ res);
+            // Admin Bypass Check
+            if(res.role!='admin' && res.role!='super-admin'){
+              window.localStorage.removeItem('jwt');
+              window.localStorage.removeItem('loggedUsername');
+              this.toastService.warning('<b>Sorry!</b><br/>AWE is currently undergoing maintenance.<br/><br/>We will be back up shortly.', {
+               style: {
+                 width: '100%',
+                 textAlign: 'center',
+               },
+               theme: 'snackbar',
+               position: 'top-center',
+               autoClose: false,
+               id: 'auth-api-error-8-13-2021',
+               persist: { enabled: false, count: 1 },
+             });
+           }else{
+             // Admin Bypass Warning
+             this.toastService.warning("<b>Admin Alert</b><br/><br/>AWE is currently in maintenance mode.")
+           }
+          },
+          err => {
+            console.log(err);
+          })
+        }
+      },
+      err =>{
+        console.log(err);
+      });
   }
 
   ngOnInit(){

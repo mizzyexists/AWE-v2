@@ -14,3 +14,19 @@
     </form>
   </div>
 </div>
+
+
+<ng-template #inactiveAccountModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Inactive Account</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body mx-1 text-center">
+    <p>It looks like this account is currently <b>DEACTIVATED</b></p>
+    <p>Would you like to reactivate this account?</p>
+    <a (click)="modal.close();" class="btn btn-dark mx-1">Yes</a>
+    <a (click)="modal.close()"class="btn btn--primary mx-1">No / Cancel</a>
+  </div>
+</ng-template>

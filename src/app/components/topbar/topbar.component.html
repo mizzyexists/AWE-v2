@@ -6,7 +6,9 @@
   <div *ngIf="isLoggedIn==true && maintenanceMode=='false' || userRole=='admin' || userRole=='super-admin'" class="userinfo">
     <app-notibar></app-notibar>
     <div class="user-container" ngbDropdown display="dynamic">
-    <a id="userDrop" ngbDropdownToggle ><img class="user-img" src="{{profilePic}}"><fa-icon class="arrow" [icon]="faChevronDown"></fa-icon></a>
+    <a id="userDrop" ngbDropdownToggle ><img class="user-img" src="{{profilePic}}">
+      <!-- <fa-icon class="arrow" [icon]="faChevronDown"></fa-icon> -->
+    </a>
     <div ngbDropdownMenu aria-labelledby="userDrop">
       <button ngbDropdownItem routerLink="profile">View Profile</button>
       <button ngbDropdownItem routerLink="edit-profile">Edit Profile</button>

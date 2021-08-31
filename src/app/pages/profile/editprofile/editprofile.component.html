@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-6 mb-4">
+    <div class="col-lg-12 mb-4">
       <div class="card">
         <div *ngIf="fetchedUserData.username" class="card-body">
           <h5 class="card-title">
@@ -9,7 +9,7 @@
           </h5>
           <hr />
           <form [formGroup]="editUserForm" (ngSubmit)="onUpdate()" class="px-5">
-            <div class="form-group">
+            <div class="form-group d-none">
               <input type="text" formControlName="username" placeholder="Username" name="username" class="form-control" id="username">
             </div>
             <div class="form-group">
@@ -18,23 +18,41 @@
             <div class="form-group">
               <input type="tel" formControlName="phone" placeholder="Phone" name="phone" class="form-control" id="phone">
             </div>
-            <div class="form-group">
-              <input type="text" formControlName="fname" placeholder="First Name" name="fname" class="form-control" id="fname">
+            <div class="row">
+              <div class="col pr-1">
+                <div class="form-group">
+                  <input type="text" formControlName="fname" placeholder="First Name" name="fname" class="form-control" id="fname">
+                </div>
+              </div>
+              <div class="col pl-1">
+                <div class="form-group">
+                  <input type="text" formControlName="lname" placeholder="Last Name" name="lname" class="form-control" id="lname">
+                </div>
+              </div>
             </div>
-            <div class="form-group">
-              <input type="text" formControlName="lname" placeholder="Last Name" name="lname" class="form-control" id="lname">
+            <div class="row">
+              <div class="col pr-1">
+                <div class="form-group">
+                  <input type="text" formControlName="street" placeholder="Street Address" name="street" class="form-control" id="street">
+                </div>
+              </div>
+              <div class="col pl-1">
+                <div class="form-group">
+                  <input type="text" formControlName="city" placeholder="City" name="city" class="form-control" id="city">
+                </div>
+              </div>
             </div>
-            <div class="form-group">
-              <input type="text" formControlName="street" placeholder="Street Address" name="street" class="form-control" id="street">
-            </div>
-            <div class="form-group">
-              <input type="text" formControlName="city" placeholder="City" name="city" class="form-control" id="city">
-            </div>
-            <div class="form-group">
-              <input type="text" formControlName="state" placeholder="State" name="state" class="form-control" id="state">
-            </div>
-            <div class="form-group">
-              <input type="text" formControlName="country" placeholder="Country" name="country" class="form-control" id="country">
+            <div class="row">
+              <div class="col pr-1">
+                <div class="form-group">
+                  <input type="text" formControlName="state" placeholder="State" name="state" class="form-control" id="state">
+                </div>
+              </div>
+              <div class="col pl-1">
+                <div class="form-group">
+                  <input type="text" formControlName="country" placeholder="Country" name="country" class="form-control" id="country">
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <input type="url" formControlName="twitter" placeholder="Twitter" name="twitter" class="form-control" id="twitter">
@@ -55,6 +73,7 @@
               <re-captcha class="text-center d-flex justify-content-center" formControlName="reCaptcha" name="reCaptcha" id="reCaptcha" (resolved)="resolved($event)" siteKey='6LdeStsZAAAAAO_XpcvZ0HlHeD-7iR0t6ZR_HJrD'></re-captcha>
             </div> -->
             <button class="btn btn--primary">Save Changes</button><a href="/profile/" class="btn btn-secondary ml-2">Cancel</a>
+            <a (click)="open(deleteAccountModal)" class="btn btn-danger delete-btn">Delete Account</a>
           </form>
         </div>
         <div *ngIf="!fetchedUserData.username" class='card-body'>
@@ -68,3 +87,39 @@
     </div>
   </div>
 </div>
+
+<ng-template #deleteAccountModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Delete Account</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body mx-1 text-center">
+    <p class="deleteText">Are you sure you wish to delete your account?</p>
+    <p>This action <b>CAN'T</b> be undone</p>
+    <p>If you are sure, please type "DELETE" (all caps) in the box below.<br/>Then, click the "Delete Account" button</p>
+    <input class="my-5" [(ngModel)]="deleteConfirm" type="text" placeholder="DELETE" id="deleteConfirm">
+    <br/>
+    <a (click)="deleteAccount(this.deleteConfirm); modal.close()" class="btn btn-danger mx-1">Delete Account</a>
+    <a (click)="modal.close()"class="btn btn--primary mx-1">Cancel</a>
+    <br/>
+    <a (click)="modal.close(); open(deactivateAccountModal);" class="other-option">Deactivate Account</a>
+  </div>
+</ng-template>
+
+<ng-template #deactivateAccountModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Deactivate Account</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body mx-1 text-center">
+    <p>Deactivating your account will NOT delete any data and will set your account as inactive until you decide to login again.</p>
+    <a (click)="deactivateAccount(); modal.close();" class="btn btn-dark mx-1">Deactivate Account</a>
+    <a (click)="modal.close()"class="btn btn--primary mx-1">Cancel</a>
+    <br/>
+    <a (click)="modal.close(); open(deleteAccountModal);" class="other-option">I'd rather delete my account</a>
+  </div>
+</ng-template>

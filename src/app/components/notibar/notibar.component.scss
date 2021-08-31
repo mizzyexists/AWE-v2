@@ -2,6 +2,7 @@
   .noti-container{
     .dropdown-menu{
       width: 150px;
+      transform: translate(-130px, 36px) !important;
     }
   }
 }
@@ -10,6 +11,7 @@
   .noti-container{
     .dropdown-menu{
       width: 240px;
+      transform: translate(-205px, 36px) !important;
     }
   }
 }
@@ -17,6 +19,7 @@
   .noti-container{
     .dropdown-menu{
       width: 300px;
+      transform: translate(-270px, 36px) !important;
     }
   }
 }
@@ -29,7 +32,6 @@
     white-space: normal;
     padding: 0px;
     margin-top: 32px !important;
-    transform: translate(-274px, 36px) !important;
     overflow-y: auto;
     max-height: 75vh;
     .dropdown-item{

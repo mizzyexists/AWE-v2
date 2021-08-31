@@ -16,3 +16,25 @@ h5{
     padding: 20px;
   }
 }
+
+.delete-btn{
+  float: right;
+}
+
+.deleteText{
+  font-weight: bold;
+  font-size: 20px;
+  color: red;
+  text-transform: uppercase;
+}
+
+#deleteConfirm, #deleteConfirm::placeholder {
+    text-align: center;
+}
+
+.other-option{
+  margin-top: 10px;
+  color: grey;
+  cursor: pointer;
+  display: block;
+}
