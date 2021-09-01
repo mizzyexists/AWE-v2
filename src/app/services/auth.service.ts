@@ -37,6 +37,16 @@ export class AuthService {
     return this.httpClient.post<any>(`${this.PHP_API_SERVER}/auth/getLoggedRole.php`, profileRequestAuth);
   }
 
+  deactivateAccount(profileRequestAuth:any): Observable<any>{
+    return this.httpClient.put<any>(`${this.PHP_API_SERVER}/auth/deactivateAccount.php`, profileRequestAuth);
+  }
+
+  reactivateAccount(profileRequestAuth:any): Observable<any>{
+    return this.httpClient.put<any>(`${this.PHP_API_SERVER}/auth/reactivateAccount.php`, profileRequestAuth);
+  }
+
+
+
   authenticateUser(authRequest: any): Subject<any>{
     let subject = new Subject();
     // Check for token auth data

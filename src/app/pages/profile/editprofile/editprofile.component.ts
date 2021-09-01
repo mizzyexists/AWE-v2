@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HotToastService } from '@ngneat/hot-toast';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProfileService } from 'src/app/services/profile.service';
 
 
@@ -19,6 +20,7 @@ export class EditprofileComponent implements OnInit {
   constructor(
     private formBuilder:FormBuilder,
     private profileApi: ProfileService,
+    private authApi: AuthService,
     private toastService: HotToastService,
     private modalService: NgbModal
   ) {
@@ -85,7 +87,19 @@ export class EditprofileComponent implements OnInit {
  }
 
  deactivateAccount(){
-   this.toastService.warning("Your account has been deactivated");
+   this.authApi.deactivateAccount(this.authRequest).subscribe(res => {
+     if(res.code == 1){
+       this.toastService.loading("Deactivating Account...");
+       window.localStorage.removeItem('jwt');
+       window.localStorage.removeItem('loggedUsername');
+       setTimeout(() => window.location.href = '/', 2500);
+     }
+     else{
+       this.toastService.error(res.message);
+     }
+   }, err => {
+     this.toastService.error("An unknown error occured");
+   })
  }
 
 

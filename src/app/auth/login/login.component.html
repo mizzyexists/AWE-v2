@@ -15,7 +15,6 @@
   </div>
 </div>
 
-
 <ng-template #inactiveAccountModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title">Inactive Account</h4>
@@ -26,7 +25,7 @@
   <div class="modal-body mx-1 text-center">
     <p>It looks like this account is currently <b>DEACTIVATED</b></p>
     <p>Would you like to reactivate this account?</p>
-    <a (click)="modal.close();" class="btn btn-dark mx-1">Yes</a>
-    <a (click)="modal.close()"class="btn btn--primary mx-1">No / Cancel</a>
+    <a (click)="reactivateAccount(); modal.close();" class="btn btn--primary mx-1">Yes, Re-activate my account</a>
+    <a (click)="cancelReactivation(); modal.close();"class="btn btn-secondary text-white mx-1">No, Cancel</a>
   </div>
 </ng-template>

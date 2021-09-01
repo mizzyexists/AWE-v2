@@ -22,6 +22,7 @@ if(isset($postdata) && !empty($postdata))
         $dbhash = $rows[0]['password'];
         $dbemail = $rows[0]['email'];
         $dbrole = $rows[0]['role'];
+        $dbstatus = $rows[0]['account_status'];
       }
       if(password_verify($password, $dbhash) == true){
         $payload = [
@@ -33,19 +34,53 @@ if(isset($postdata) && !empty($postdata))
             'uid' => $dbuid,
             'username' => $username,
             'email' => $dbemail,
-            'role' => $dbrole
+            'role' => $dbrole,
+            'status' => $dbstatus
           ]
         ];
         $secret = $dbhash;
         $token = Token::customPayload($payload, $secret);
-        $response = [
-          'code' => 1,
-          'message' => 'Successfully Logged In',
-          'jwt' => $token,
-          'username' => $dbusername
-        ];
-        header('Content-type: application/json');
-        echo json_encode($response);
+        if($dbstatus == 'active'){
+          $response = [
+            'code' => 1,
+            'message' => 'Successfully Logged In',
+            'jwt' => $token,
+            'username' => $dbusername,
+            'status' => $dbstatus
+          ];
+          header('Content-type: application/json');
+          echo json_encode($response);
+        }
+        elseif($dbstatus == 'inactive') {
+          $response = [
+            'code' => 2,
+            'message' => 'Account is currently deactivated',
+            'jwt' => $token,
+            'username' => $dbusername,
+            'status' => $dbstatus
+          ];
+          header('Content-type: application/json');
+          echo json_encode($response);
+        }
+        elseif($dbstatus == 'banned') {
+          $response = [
+            'code' => 0000,
+            'message' => 'ACCOUNT IS BANNED',
+            'username' => $dbusername,
+            'status' => $dbstatus
+          ];
+          header('Content-type: application/json');
+          echo json_encode($response);
+        }
+        else{
+          $response = [
+            'code' => 2521,
+            'message' => 'Unknown user status',
+            'error' => 'BAD USER STATUS',
+          ];
+          header('Content-type: application/json');
+          echo json_encode($response);
+        }
       }
       else{
         $response = [
