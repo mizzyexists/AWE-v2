@@ -44,6 +44,7 @@ export class AdminMenuComponent implements OnInit {
     this.prepareNotiForm();
     this.prepareAlertForm();
     this.getAppSettingsForm();
+    this.getActiveAlerts();
     // Get Auth Data
     this.authRequest[0] = window.localStorage.getItem('jwt');
     this.authRequest[1] = window.localStorage.getItem('loggedUsername');
@@ -145,6 +146,7 @@ export class AdminMenuComponent implements OnInit {
         if(res.code == 1){
           this.toastService.success(res.message);
           this.prepareAlertForm();
+          this.getActiveAlerts();
           var date = new Date().toLocaleString();
           this.profileApi.generateNotification(this.authRequest[0], this.authRequest[1], "mizzy", '⚠️ Alert Created', "There was a new global alert created by "+this.authRequest[1]+" at "+date, "/admin-menu").subscribe();
         }

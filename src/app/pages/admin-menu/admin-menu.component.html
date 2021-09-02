@@ -6,7 +6,39 @@
           <h3>Alert Operations</h3>
           <hr/>
           <a (click)="open(createAlert)" class="btn btn--primary mx-2 my-1">Create Global Alert</a>
-          <a (click)="open(activeAlerts); getActiveAlerts();" class="btn btn-primary mx-2 my-1">Active Alerts</a>
+          <div *ngIf="fetchedActiveAlerts[0]" class="modal-body mx-1">
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th scope="col">AID</th>
+                <th scope="col">Message</th>
+                <th scope="col">Persist</th>
+                <th scope="col">Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let alert of fetchedActiveAlerts">
+                <th>{{ alert.alert_id }}</th>
+                <td class="w-50">{{ alert.message }}</td>
+                <td>{{ alert.persist }}</td>
+                <td class="text-center"><a (click)="open(editAlert); updateAlertForm(alert.alert_id, alert.type, alert.message, alert.theme, alert.persist, alert.persist_id, alert.persist_count, alert.autoclose);" class="btn btn--primary mx-1 my-1">Edit</a><a (click)="deleteAlert(alert.alert_id)" class="btn btn-danger mx-1 my-1">Delete</a></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="!fetchedActiveAlerts[0] && alertsLoading == false" class="modal-body mx-1">
+            <div class="d-flex justify-content-center py-5">
+              <p>No Active Alerts</p>
+            </div>
+          </div>
+          <div *ngIf="!fetchedActiveAlerts[0] && alertsLoading == true" class="modal-body mx-1">
+            <div class="d-flex justify-content-center py-5">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+          </div>
+          <!-- <a (click)="open(activeAlerts); getActiveAlerts();" class="btn btn-primary mx-2 my-1">Active Alerts</a> -->
         </div>
       </div>
     </div>
@@ -102,38 +134,6 @@
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
-  </div>
-  <div *ngIf="fetchedActiveAlerts[0]" class="modal-body mx-1">
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th scope="col">AID</th>
-        <th scope="col">Message</th>
-        <th scope="col">Persist</th>
-        <th scope="col">Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let alert of fetchedActiveAlerts">
-        <th>{{ alert.alert_id }}</th>
-        <td class="w-50">{{ alert.message }}</td>
-        <td>{{ alert.persist }}</td>
-        <td class="text-center"><a (click)="open(editAlert); updateAlertForm(alert.alert_id, alert.type, alert.message, alert.theme, alert.persist, alert.persist_id, alert.persist_count, alert.autoclose);" class="btn btn--primary mx-1 my-1">Edit</a><a (click)="deleteAlert(alert.alert_id)" class="btn btn-danger mx-1 my-1">Delete</a></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  <div *ngIf="!fetchedActiveAlerts[0] && alertsLoading == false" class="modal-body mx-1">
-    <div class="d-flex justify-content-center py-5">
-      <p>No Active Alerts</p>
-    </div>
-  </div>
-  <div *ngIf="!fetchedActiveAlerts[0] && alertsLoading == true" class="modal-body mx-1">
-    <div class="d-flex justify-content-center py-5">
-        <div class="spinner-border" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-    </div>
   </div>
 </ng-template>
 
