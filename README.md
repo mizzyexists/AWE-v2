@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://mizzy.dev/mizzy/AWE-v2/-/raw/master/src/assets/images/AWEIconV2.png" width="300px" />
+<img src="https://raw.githubusercontent.com/mizzyexists/AWE-v2/master/src/assets/images/AWEIconV2.png" width="200px" />
 
 <h1>AWE v2 - Angular Web Engine v2</h1>
 <br />
